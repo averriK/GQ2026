@@ -1,0 +1,6 @@
+layer,description,USCS,hs,elev_top,elev_bot,z_top,z_bot,zm,saturated,note
+1,Dam,GC-GM,18,400,382,0,18,9,FALSE,Estimated Vs 250-300 m/s (Karray et al. 2011); internal zoning
+2,Foundation,CL-ML,6,382,376,18,24,21,TRUE,Upper varved clay (mainly CL)
+3,Foundation,ML-CL,4,376,372,24,28,26,TRUE,Lower varved clay (mainly ML)
+4,Foundation,SM-SC,5,372,367,28,33,30.5,TRUE,Upper fluvioglacial getting finer
+5,Foundation,SP,5,367,362,33,38,35.5,TRUE,Sand poorly graded above bedrock
