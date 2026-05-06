@@ -1,0 +1,30 @@
+
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("TR_TARGET"))   TR_TARGET    <- TR_gmdp
+if (!exists("Vs30_TARGET")) Vs30_TARGET <- sort(as.numeric(Vs30_gmdp))
+if (!exists("ID_TARGET"))    ID_TARGET    <- ID_max
+if (!exists("Tn_TARGET"))   Tn_TARGET    <- 0
+if (!exists("p_TARGET"))    p_TARGET     <- "mean"
+if (!exists("PSA_Units"))  PSA_Units    <- "cm/s2"
+CAP <-  "Design Ground Motions for operation, closure and post-closure, defined in terms of peak ground accelerations (PGA) [%s] for diffrent consequence levels (**Class**) according to different standards. Spectral ordinates were obtained for AEP ranging from 1/%d to 1/%ds [1/yr] and site conditions with Vs30 ranging from %d to %d  [m/s]."
+Standard_TARGET <- c("GISTM"   , "CDA","ANCOLD")
+Stage_TARGET <- c("Operation"   , "Closure",      "Post-Closure")
+```
+
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP  |> sprintf(PSA_Units,min(TR_TARGET),max(TR_TARGET),min(Vs30_TARGET),max(Vs30_TARGET))
+#| tbl-label: "!expr(sprintf('tbl-%s', as.character(as.numeric(Sys.time()))))"
+
+Stage_TARGET <- "Closure"
+source(file.path(root,"scripts","tbl/DEQ.R"))
+TBL
+```
+
+
+```{r}
+#| include: false
+rm(ID_TARGET, Tn_TARGET, p_TARGET, Vs30_TARGET, TR_TARGET, PSA_Units, Standard_TARGET, Stage_TARGET, CAP)
+```

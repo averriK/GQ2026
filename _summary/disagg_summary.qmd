@@ -1,0 +1,18 @@
+
+
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+TR_TARGET <- c(TR_gmdp[3], last(TR_gmdp))
+Tn_TARGET <- 0  # PGA
+
+source(file.path(root, "scripts", "setup", "summary", "disagg.R"))
+```
+* Hazard disaggregation was performed for return periods from 1/`r SUMMARY$trMin` to 1/`r SUMMARY$trMax` years and spectral periods from PGA to `r SUMMARY$tnMax` s. At PGA, the modal controlling scenario for AEP 1/`r SUMMARY$trLabel[1]` corresponds to $M_w$ `r SUMMARY$mw[1]` at $R \approx$ `r SUMMARY$rDist[1]` km, and for AEP 1/`r SUMMARY$trLabel[2]` to $M_w$ `r SUMMARY$mw[2]` at $R \approx$ `r SUMMARY$rDist[2]` km. Modal magnitude–distance pairs for all return periods and spectral periods are reported in section [-@sec-disagg]
+
+```{r}
+#| include: false
+rm(TR_TARGET, Tn_TARGET, SUMMARY)
+```

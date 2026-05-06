@@ -1,0 +1,21 @@
+&nbsp;
+
+```{r}
+#| include: true
+#| label: tbl-IDg
+#| tbl-cap: "Slope configurations representative of tailings storage facilities (TSF) and waste rock dumps (WRD) used in Newmark displacement and fundamental-period analyses."
+DT <- ShearTable[,.(IDg,"Hs[m]"=Hs,"b[m]"=b,"s"=round(s,1),lo)]   |> unique()
+
+
+TBL <- DT |> buildTable(
+    library = "flextable",
+    align.body = "center",
+    font.size.body = FONT.SIZE.BODY,
+    font.size.header = FONT.SIZE.HEADER
+)
+TBL <- flextable::set_table_properties(TBL, layout = "autofit")
+
+TBL
+
+```
+&nbsp;

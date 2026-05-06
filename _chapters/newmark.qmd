@@ -1,0 +1,64 @@
+
+### Probabilistic Functional Form
+
+The Newmark sliding-block method conceptualizes the seismically loaded slope as either a rigid or a flexible (compliant) block resting on an inclined frictional surface. When the driving acceleration component along the failure plane exceeds the yield acceleration $k_y g$, the block undergoes incremental downslope movement; relative motion ceases when the driving acceleration falls below this threshold. The total permanent displacement $D$ accumulates over all exceedance episodes throughout the duration of shaking. In probabilistic applications, displacement is characterized using empirical regression relationships expressed in lognormal space.
+
+All models in the ensemble follow the general functional form in which the logarithm of displacement is expressed as a deterministic mean plus a random residual:
+
+$$\ln D = \mu_{\ln D}(\mathrm{IM},\,k_y,\,T_n,\,M_w) + \epsilon\,\sigma_{\ln D}$$
+
+In this expression, $\mathrm{IM}$ denotes the set of ground-motion intensity measures specific to each model (e.g., $\mathrm{PGA}$, spectral acceleration $S_a$ at a reference period, Arias intensity $\mathrm{AI}$, or peak ground velocity $\mathrm{PGV}$); $T_n$ is the fundamental period of the sliding mass; $M_w$ is the earthquake moment magnitude where included as a model predictor; $\mu_{\ln D}$ is the model-predicted mean displacement in natural-log space; $\sigma_{\ln D}$ is the associated standard deviation in natural-log space; and $\epsilon \sim \mathcal{N}(0,1)$ is a standard-normal variate capturing record-to-record variability not explained by the regression. Where hazard is derived from a ground-motion model or site response analysis, spectral accelerations are evaluated at the periods required by each model, typically $S_a(\alpha T_n)$ with $\alpha$ in the range 1.3 to 1.5. This convention reflects the observation that the peak response of a flexible sliding mass does not occur at its undegraded fundamental period but at a somewhat longer period, accounting for partial stiffness degradation under seismic loading.
+
+Throughout this chapter, $D$ denotes permanent displacement in centimeters; $k_y = a_y/g$ is the dimensionless yield-acceleration ratio; $\mathrm{PGA}$ is peak ground acceleration in units of $g$; $\mathrm{PGV}$ is peak ground velocity in cm s$^{-1}$; $\mathrm{AI}$ is Arias intensity in m s$^{-1}$; $T_n$ is the fundamental period of the sliding mass in seconds; $S_a$ is spectral acceleration in $g$ evaluated at a model-specific period; $M_w$ is moment magnitude; and $r = k_y/\mathrm{PGA}$ is the critical acceleration ratio. All dispersions $\sigma$ are one-standard-deviation values in natural-log space unless otherwise noted.
+
+### Rigid-Block Models
+
+The rigid-block idealization treats the sliding mass as an undistorted body that moves as a whole relative to the underlying ground. Dynamic amplification within the mass is negligible, and the response is governed entirely by the base excitation. This idealization is appropriate for shallow translational failure surfaces in relatively stiff materials whose fundamental period is short relative to the dominant periods of the input motion. Three rigid-block models are retained in the ensemble.
+
+**Ambraseys and Menu** [-@AmbraseysMenu1988]: The Ambraseys and Menu model is a Newmark-type regression relationship, calibrated against 50 strong-motion records from 11 earthquakes. The model employs the critical acceleration ratio $r = k_y/\mathrm{PGA}$ as the sole predictor and is applicable to rigid translational slides. The regression is expressed in $\log_{10}$ space, with the residual standard deviation $\sigma_{\log_{10}D} = 0.30$, equivalent to $\sigma_{\ln D} = 0.30\ln 10 \approx 0.691$.
+
+$$\mu_{\log_{10}D} = 0.90 + \log_{10}\!\left[(1-r)^{2.53}\,r^{-1.09}\right]$$
+
+**Jibson** [-@Jibson2007]: The Jibson model is a rigid-block formulation calibrated against 2,270 strong-motion records from 30 worldwide earthquakes, incorporating Arias intensity as a duration-sensitive predictor. The model is applicable to shallow, translational failure surfaces where the sliding mass may be approximated as infinitely stiff, and is used in preliminary design evaluation and regional seismic landslide hazard assessment. Arias intensity is expressed in m s$^{-1}$ and may be estimated from $\mathrm{PGA}$ when direct measurements are unavailable. The regression residual in $\log_{10}$ space is $\sigma_{\log_{10}D} = 0.616$, equivalent to $\sigma_{\ln D} \approx 1.419$.
+
+$$\mu_{\ln D} = \left[0.561\log_{10}\mathrm{AI} - 3.833\log_{10}(k_y/\mathrm{PGA}) - 1.474\right]\ln 10$$
+
+**Saygili and Rathje** [-@SaygiliRathje2008]: The Saygili and Rathje model is a multi-parameter rigid-block formulation developed from a database exceeding 2,000 acceleration time-histories, employing both Arias intensity and peak ground acceleration as simultaneous predictors. The model is applicable to stiff, shallow, translational failure surfaces. The dispersion is amplitude-dependent: the standard deviation increases as $r$ decreases, reflecting greater prediction uncertainty for slopes operating close to their yield threshold.
+
+$$\mu_{\ln D} = 2.39 - 5.24r - 18.78r^2 + 42.01r^3 - 29.15r^4 - 1.56\ln\mathrm{PGA} + 1.38\ln\mathrm{AI}$$
+
+$$r = k_y/\mathrm{PGA}, \qquad \sigma_{\ln D} = 0.46 + 0.56\,r$$
+
+### Flexible-Block Models
+
+Flexible-block models account for the dynamic response of the sliding mass as a deformable body by incorporating the fundamental period $T_n$ and spectral acceleration $S_a$ evaluated at a period proportional to $T_n$. All three flexible-block models include an explicit dependence on $M_w$ to account for the influence of earthquake duration on accumulated displacement. These models are appropriate for deeper-seated failure surfaces in earth dams, natural slopes, compacted fills, and waste embankments where the sliding mass has appreciable deformability.
+
+**Bray, Macedo, and Travasarou** [-@BrayEtAl2017]: The Bray, Macedo, and Travasarou model is a flexible-block formulation calibrated for subduction zone interface and intraslab earthquakes against 810 two-component ground-motion recordings. Spectral acceleration is evaluated at the undegraded fundamental period $T_n$ of the sliding mass, and the coefficient $a_0$ takes a piecewise form distinguishing short-period ($T_n < 0.1$ s) from longer-period sliding masses. The residual standard deviation is $\sigma_{\ln D} = 0.73$.
+
+$$\begin{aligned}
+\mu_{\ln D} &= a_0 + a_1\ln S_a + a_2(\ln S_a)^2 \\[6pt]
+a_0 &= \begin{cases}
+-5.864 + 0.550\,M_w - 9.421\,T_n - 3.353\ln k_y - 0.390(\ln k_y)^2, & T_n < 0.1 \\
+-6.896 + 0.550\,M_w + 3.081\,T_n - 0.803\,T_n^2 - 3.353\ln k_y - 0.390(\ln k_y)^2, & T_n \geq 0.1
+\end{cases} \\[6pt]
+a_1 &= 3.060 + 0.538\ln k_y, \qquad a_2 = -0.225
+\end{aligned}$$
+
+**Bray and Macedo** [-@BrayMacedo2019]: The Bray and Macedo model employs the same functional structure as the 2017 formulation but with coefficients recalibrated for shallow crustal earthquakes using 6,711 two-component recordings from the NGA-West2 database. Spectral acceleration is evaluated at $1.3\,T_n$, and an additional correction applies for near-fault, high-amplitude motions when $\mathrm{PGV} > 115$ cm s$^{-1}$. The residual standard deviation is $\sigma_{\ln D} = 0.72$ (Bray and Macedo, 2023 correction). When $\mathrm{PGV}$ is not independently available, it may be estimated from $\mathrm{PGA}$.
+
+$$\begin{aligned}
+\mu_{\ln D} &= a_0 + a_1\ln S_a + a_2(\ln S_a)^2 \\[6pt]
+a_0 &= \begin{cases}
+-4.684 + 0.603\,M_w - 9.471\,T_n - 2.482\ln k_y - 0.244(\ln k_y)^2, & T_n < 0.1 \\
+-5.981 + 0.603\,M_w + 3.223\,T_n - 0.945\,T_n^2 - 2.482\ln k_y - 0.244(\ln k_y)^2, & T_n \geq 0.1
+\end{cases} \\[6pt]
+&\quad + \begin{cases}
+0, & \mathrm{PGV} \leq 115\;\text{cm s}^{-1} \\
+\ln\mathrm{PGV} - \ln 115, & \mathrm{PGV} > 115\;\text{cm s}^{-1}
+\end{cases} \\[6pt]
+a_1 &= 2.649 + 0.344\ln k_y, \qquad a_2 = -0.090
+\end{aligned}$$
+
+**Bray and Travasarou** [-@BrayTravasarou2007]: The Bray and Travasarou model is a flexible-block formulation calibrated against 688 recorded ground motions spanning a range of tectonic environments using coupled stick-slip analyses. The model is applicable to earth dams, natural slopes, compacted earth fills, and municipal solid-waste landfills subject to deviatoric shear-type deformations, covering both deep-seated and shallow failure surfaces in compliant slopes. Spectral acceleration is evaluated at $1.5\,T_n$. The residual standard deviation is $\sigma_{\ln D} = 0.66$.
+
+$$\mu_{\ln D} = -1.10 - 2.83\ln k_y - 0.333(\ln k_y)^2 + 0.566\ln k_y\ln S_a + 3.04\ln S_a - 0.244(\ln S_a)^2 + 0.278(M_w - 7)$$

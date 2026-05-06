@@ -1,0 +1,57 @@
+
+## <br>Design Ground Motions (PGA) {#sec-criteria}
+
+:::{.panel-tabset}
+
+
+### PGA  (`r ID_gmdp[1]`)
+
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".site")
+```
+
+:::{.panel-tabset .full-width }
+
+#### Operational Stages (OBE)
+
+
+{{< include /_tbl/DEQ_OBE.qmd >}}
+
+#### Closure Stages (SSE)
+
+{{< include /_tbl/DEQ_SSE.qmd >}}
+
+#### Post Closure Stages (PCE)
+
+{{< include /_tbl/DEQ_PCE.qmd >}}
+
+:::
+
+### PGA  (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".site")
+```
+
+:::{.panel-tabset .full-width }
+
+#### Operational Stages (OBE)
+
+{{< include /_tbl/DEQ_OBE.qmd >}}
+
+#### Closure Stages (SSE)
+
+{{< include /_tbl/DEQ_SSE.qmd >}}
+
+#### Post Closure Stages (PCE)
+
+{{< include /_tbl/DEQ_PCE.qmd >}}
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET)
+```

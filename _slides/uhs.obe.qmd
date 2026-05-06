@@ -1,0 +1,29 @@
+
+## <br>Design Ground Motions (UHS) — OBE
+
+:::{.panel-tabset}
+
+### UHS (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".site")
+```
+
+{{< include /_fig/DEQ_OBE.qmd >}}
+
+
+### UHS (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".site")
+```
+
+{{< include /_fig/DEQ_OBE.qmd >}}
+
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET)
+```

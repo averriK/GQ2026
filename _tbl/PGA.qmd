@@ -1,0 +1,22 @@
+
+```{r}
+#| include: false
+CAP <- "Peak Ground Accelerations (PGA) [%s] for site conditions with Vs30 = %d m/s. Columns show confidence intervals. Mean values in bold."
+if (!exists("TR_TARGET")) TR_TARGET <- TR_gmdp
+if (!exists("PSA_Units")) PSA_Units <- "cm/s2"
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+
+{{< include /_tbl/PGA_Vs30.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(TR_TARGET, PSA_Units, CAP, Vs30_TARGET)
+```

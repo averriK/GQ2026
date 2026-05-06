@@ -1,0 +1,9 @@
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+::: {#fig-MAP_2}
+<iframe src="/mapper/byCluster/index.html" width="100%" height="700px"></iframe>
+:::
+:::

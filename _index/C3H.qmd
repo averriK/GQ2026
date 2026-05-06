@@ -1,0 +1,36 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+
+# Annual Exceedance Probabilities
+
+## Hazard Integral {#sec-hazard}
+
+{{< include /_chapters/hazard.qmd >}}
+
+
+## Ground-Motion Model {#sec-gmm}
+
+{{< include /_chapters/GMM.qmd >}}
+
+
+:::{.content-hidden when-format='docx'}
+
+
+## Annual Exceedance Probability (AEP)
+
+{{< include /_fig/AEP.qmd >}}
+
+
+
+## Probability of Exceedance (PoE)
+
+{{< include /_fig/POE.qmd >}}
+
+:::
+
+
+

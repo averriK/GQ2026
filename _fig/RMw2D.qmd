@@ -1,0 +1,59 @@
+```{r}
+#| include: false
+```
+:::{.content-visible when-format='docx'}
+:::
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_R\approx 500\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 500
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+### $1,000\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 1000
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+### $2,000\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 2000
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+### $2,500\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 2500
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+### $5,000\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 5000
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+### $10,000\,yr$
+```{r}
+#| include: true
+TR_TARGET <- 10000
+```
+{{< include /_fig/RMw2D_Tn.qmd >}}
+
+:::
+
+:::
+```{r}
+#| include: false
+rm(TR_TARGET, Tn_TARGET)
+```

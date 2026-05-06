@@ -1,0 +1,22 @@
+
+
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+Standard_TARGET <- c("GISTM", "CDA", "ANCOLD")
+Stage_TARGET    <- c("Operation", "Closure", "Post-Closure")
+ID_TARGET       <- "max"
+p_TARGET        <- "mean"
+Tn_TARGET       <- 0
+PSA_Units       <- "cm/s2"
+
+source(file.path(root, "scripts", "setup", "summary", "criteria.R"))
+```
+* Seismic design criteria for `r params$site` were established for `r SUMMARY$nClass` consequence classes (`r SUMMARY$classes`) and three lifecycle phases (operation, closure, post-closure) in accordance with GISTM, CDA, and ANCOLD. Design PGA values were derived for return periods from 1/`r SUMMARY$trMin` to 1/`r SUMMARY$trMax` years and site conditions with $v_{s,30}$ ranging from `r SUMMARY$vs30Min` to `r SUMMARY$vs30Max` m/s. Mean design PGA spans `r SUMMARY$pgaMin` to `r SUMMARY$pgaMax` [`r PSA_Units`] across all combinations of standard, consequence class, lifecycle phase, and site condition. Design ground motions for each lifecycle phase are summarised in section [-@sec-criteria].
+
+```{r}
+#| include: false
+rm(Standard_TARGET, Stage_TARGET, ID_TARGET, p_TARGET, Tn_TARGET, PSA_Units, SUMMARY)
+```

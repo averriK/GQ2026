@@ -1,0 +1,34 @@
+
+```{r}
+#| include: true
+#| label: tbl-scAS
+#| tbl-cap: "Site Classification. Source: Australian Standard AS-1726"
+#| tbl-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+
+SC=c("A","B","C","D","E")
+Description=c(
+  "Strong Rocks",#A,>1500 m/s
+  "Rocks",#B,760 to 1500 m/s
+  "Shallow soil site",#C 360 to 760 m/s
+  "Deep or soft soil site", #D 180 to 360 m/s
+  "Very soft soil site")#E 140-180 m/s
+  
+
+Vs30=c(
+  ">1500 [m/s]",
+  ">360 [m/s]",
+  ">150 [m/s]",
+  ">150 [m/s]",
+  "<=150 [m/s]")
+
+DT <- data.table::data.table(
+  SC=SC,
+  Description=Description,
+  Vs30=Vs30)
+
+TBL <- DT |> buildTable(library="flextable",font.size.body = FONT.SIZE.BODY,font.size.header = FONT.SIZE.HEADER)
+TBL <- flextable::set_table_properties(TBL,layout = "autofit")
+
+TBL
+```
+&nbsp;

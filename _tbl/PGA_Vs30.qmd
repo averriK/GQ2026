@@ -1,0 +1,77 @@
+:::{.panel-tabset .full-width }
+
+
+
+#### `r Site_LABEL[7]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[7])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[7]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+#### `r Site_LABEL[6]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[6])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[6]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+#### `r Site_LABEL[5]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[5])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[5]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+
+#### `r Site_LABEL[4]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[4])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[4]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+
+#### `r Site_LABEL[3]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[3])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[3]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+#### `r Site_LABEL[2]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[2])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[2]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+#### `r Site_LABEL[1]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, Vs30_gmdp[1])
+#| tbl-label: "!expr(sprintf('tbl-pga-%s', as.character(as.numeric(Sys.time()))))"
+Vs30_TARGET <- Vs30_gmdp[1]
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+:::

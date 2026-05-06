@@ -1,0 +1,11 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+
+# Uncertainty Model {#sec-uncertainty_appendix}
+
+
+{{< include /_chapters/uncertainty_model.qmd >}}

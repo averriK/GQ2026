@@ -1,0 +1,207 @@
+
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg_gmdp[1]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[1],IDg_gmdp[1] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[1]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[2]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[2],IDg_gmdp[2] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[2]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[3]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[3],IDg_gmdp[3] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[3]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[4]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[4],IDg_gmdp[4] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[4]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[5]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[5],IDg_gmdp[5] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[5]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[6]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[6],IDg_gmdp[6] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[6]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+
+#### `r IDg_gmdp[7]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[7],IDg_gmdp[7] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+IDg_TARGET <- IDg_gmdp[7]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+
+
+#### `r IDg_gmdp[8]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[8],IDg_gmdp[8] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+IDg_TARGET <- IDg_gmdp[8]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[9]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[9],IDg_gmdp[9] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+IDg_TARGET <- IDg_gmdp[9]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[10]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[10],IDg_gmdp[10] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[10]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[11]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[10],IDg_gmdp[11] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[11]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg_gmdp[12]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(IDg_gmdp[10],IDg_gmdp[12] |> gsub(pattern="S",replacement="") |> as.numeric(),TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+IDg_TARGET <- IDg_gmdp[12]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+:::
+
+
+
+
+

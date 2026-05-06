@@ -1,0 +1,84 @@
+
+```{r}
+#| include: true
+#| label: tbl-cda
+#| tbl-cap: "CDA Seismic Design Criteria by Consequence Category (CDA Mining Dams Technical Bulletin [-@cda2021] . The Canadian Dam Association (CDA) defines five consequence categories, based on **Population at Risk (PAR)** and the scale of environmental and economic impact. The post-closure criterion (1/10,000 AEP or MCE) must be achieved before abandonment for all facilities. Lower classes may temporarily use a risk-based closure/transition approach if justified. MCE governs if it produces higher demand than the probabilistic AEP. SEE = Safety Evaluation Earthquake; PAR = Population at Risk.  Closure is considered the final, perpetual phase of a tailings facility"
+
+# --- CDA 2021 Mining Dams Technical Bulletin (corrected) ----------------------
+DT <- data.table(
+  Class = c("Low", "Significant", "High", "Very High", "Extreme"),
+  PAR   = c("0", "1–10", "11–100", "101–1,000", ">1,000"),
+  Consequences = c(
+    "Minimal off‑site or environmental impact",
+    "Limited off‑site impact, no expected fatalities",
+    "Potential for up to 100 fatalities, major local environmental/economic damage",
+    "Likely multiple fatalities, substantial regional impacts",
+    "Catastrophic, long‑term, and widespread impacts, >100 likely fatalities"
+  ),
+  # Design AEPs (star = SEE / MCE level ≥ 1/5 000)
+  Operation     = c("1/100",   "1/1,000",  "1/2,500",     "1/5,000 *", "1/10,000 *"),
+  "Closure"       = c("1/1,000", "1/2,500",  "1/10,000 *",  "1/10,000 *", "1/10,000 *")
+)
+
+cols_star <- c("Operation", "Closure")
+
+# --- locate the cells that carried an asterisk --------------------------------
+ij <- do.call(rbind, lapply(cols_star, function(col) {
+  data.frame(
+    i = which(grepl("\\*", DT[[col]])),
+    j = col,
+    stringsAsFactors = FALSE
+  )
+}))
+
+# --- strip the literal "*" from the display text ------------------------------
+for (col in cols_star) DT[[col]] <- sub("\\s*\\*$", "", DT[[col]])
+
+TBL <- TBL <- DT |> buildTable(
+    library = "flextable",
+    align.body = "center",
+    font.size.body = FONT.SIZE.BODY,
+    font.size.header = FONT.SIZE.HEADER
+) |>
+  flextable::set_table_properties(layout = "autofit") |>
+  flextable::align(align = "left", part = "all") |>
+  flextable::footnote(
+    i = 1, j = "PAR", part = "header",
+    value = flextable::as_paragraph("PAR = Population at Risk (off‑site persons)"),
+    ref_symbols = "∆"
+  ) |>
+  ## header notes --------------------------------------------------------------
+  flextable::footnote(
+    i      = 1, j = "Operation", part = "header",
+    value  = flextable::as_paragraph(
+      "Earthquake AEP targets – Construction / Operation phase (CDA Table 3‑3, 2021)"
+    ),
+    ref_symbols = "†"
+  ) |>
+
+  flextable::footnote(                               
+    i      = 1, j = c("Closure"), part = "header",
+    value  = flextable::as_paragraph(
+      "Earthquake AEP targets – Closure & Passive‑Care phase (CDA Table 4‑2, 2021)"
+    ),
+    ref_symbols = "‡"
+  ) |>
+
+  ## body‐cell note for every former "*" cell ----------------------------------
+  flextable::footnote(
+    i      = ij$i,
+    j      = ij$j,
+    part   = "body",
+    value  = flextable::as_paragraph(
+      "SEE / MCE level: use the larger of the listed AEP or the site‑specific "
+      ,"Maximum Credible Earthquake (CDA Tables 3‑3 & 4‑2, notes 2–3)."
+    ),
+    ref_symbols = "*"
+  )
+
+TBL
+
+```
+
+&nbsp;
+

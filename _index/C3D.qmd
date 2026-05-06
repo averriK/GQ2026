@@ -1,0 +1,30 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+
+# Hazard Disaggregation {#sec-disagg}
+
+## Hazard Integrals
+
+{{< include /_chapters/disaggregation.qmd >}}
+
+## Hazard Disaggregation Scenarios
+
+{{< include /_fig/RMw2D.qmd >}} 
+
+{{< include /_tbl/RMw.qmd >}}
+
+:::{.content-hidden when-format='docx'} 
+
+## Annual Exceedance Probability Disaggregation by Source (AEPS)
+
+{{< include /_fig/AEPS.qmd >}}
+
+## Probability of Exceedance Deaggregation by Source (PoES)
+
+{{< include /_fig/POES.qmd >}}
+
+:::

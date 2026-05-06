@@ -1,0 +1,24 @@
+
+```{r}
+#| include: false
+CAP <- "Design Ground Motions — pseudo-spectral acceleration PSA [%s] for return periods ranging from %s to %s [yr] and structural periods Tn ranging from %g to %g [s]. Vs30 = %s [m/s]. (p=%s)"
+if (!exists("PSA_Units")) PSA_Units <- "cm/s2"
+if (!exists("Tn_TARGET")) Tn_TARGET <- Tn_gmdp
+if (!exists("TR_TARGET")) TR_TARGET <- TR_gmdp
+if (!exists("p_TARGET"))  p_TARGET  <- "mean"
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+
+{{< include /_tbl/PSA_Vs30.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(PSA_Units, Tn_TARGET, TR_TARGET, p_TARGET, CAP, Vs30_TARGET)
+```

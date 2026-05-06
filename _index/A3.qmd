@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+# Site Response {#sec-site_model}
+
+
+{{< include /_chapters/site_model.qmd >}}
+
+
+
+{{< include /_chapters/site_class.qmd >}}
+

@@ -1,0 +1,20 @@
+
+
+```{r}
+#| include: true
+#| label: fig-MAP_0
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+source(file.path(root,"scripts","fig/seismicity.R"))
+LEGEND <- TEXT
+```
+
+:::{.content-hidden when-format='docx'}
+:::{#fig-MAP}
+
+<iframe src="mapper/byEvent/index.html" width="100%" height="700px"></iframe>
+
+`r LEGEND`
+
+:::
+
+:::

@@ -1,0 +1,46 @@
+&nbsp;
+
+```{r}
+#| include: true
+#| label: tbl-IDm
+#| tbl-cap: "Material scenarios representative of tailings storage facilities (TSF) and waste rock dumps (WRD)  used in Newmark displacement and fundamental-period analyses, with slope material classifications per the Unified Soil Classification System (USCS)"
+
+IDm <- c("U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8")
+USCS <- c(
+  "ML MH",
+  "SP SM",
+  "SP SM ML MH",
+  "GP GW",
+  "GP GW SP SM",
+  "GP GW ML MH",
+  "CL CH",
+  "CL CH ML MH"
+)
+TSF_Zone <- c(
+  "Fine Tailings (Slimes, Pond)",
+  "Coarse Tailings Beach / Upstream Shell",
+  "Transitional Zone (Beach Margin / Intermediate Tailings)",
+  "Rockfill Buttress / Downstream Shell",
+  "Downstream Shell with Granular Filter or Transition Layer",
+  "Downstream Shell with Fines-Enriched Transition / Filter",
+  "Core Zone (Impervious Core / Cutoff Trench)",
+  "Core Zone with Silty-Clay Transition (Core Margin / Fine Fill)"
+)
+
+DT <- data.table::data.table(
+  IDm = IDm,
+  USCS = USCS,
+  "TSF Zone" = TSF_Zone
+)
+
+# For Quarto rendering (flextable pipeline):
+TBL <- DT |> buildTable(
+  library = "flextable",
+  font.size.body = FONT.SIZE.BODY,
+  font.size.header = FONT.SIZE.HEADER
+)
+TBL <- flextable::set_table_properties(TBL, layout = "autofit")
+TBL
+
+```
+&nbsp;

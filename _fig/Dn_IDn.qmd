@@ -1,0 +1,70 @@
+
+:::{.panel-tabset .full-width }
+
+#### `r IDn_gmdp[1]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDn_gmdp[1], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-Dn-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+IDn_TARGET <- IDn_gmdp[1]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn_gmdp[2]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDn_gmdp[2], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-Dn-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+IDn_TARGET <- IDn_gmdp[2]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn_gmdp[3]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDn_gmdp[3], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-Dn-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+IDn_TARGET <- IDn_gmdp[3]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn_gmdp[4]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDn_gmdp[4], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-Dn-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+IDn_TARGET <- IDn_gmdp[4]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### EM (ensemble model)
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf("EM", TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-Dn-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+IDn_TARGET <- "ensemble"
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+:::

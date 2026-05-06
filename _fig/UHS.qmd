@@ -1,0 +1,75 @@
+
+```{r }
+#| include: true
+if (!exists("p_TARGET")) p_TARGET <- p_gmdp
+if (!exists("Sa_LOG"))   Sa_LOG   <- FALSE
+if (!exists("Tn_LOG"))   Tn_LOG   <- FALSE
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+CAP <- "Uniform Hazard Spectra (UHS) for Sa(Tn) [g] with 5%% critical damping. Vs30=%d m/s, TR=%s yr."
+```
+
+
+:::{.content-visible when-format='docx'}
+:::
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+
+### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[3]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[4]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[5]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[6]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[7]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+### $`r TR_LABEL[8]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/UHS_Vs30.qmd >}}
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET, Sa_LOG, Tn_LOG, TR_TARGET, Vs30_TARGET, CAP)
+```

@@ -1,0 +1,42 @@
+
+
+
+:::{.content-visible when-format='docx'}
+:::
+
+
+:::{.content-hidden when-format='docx'}
+
+
+
+```{r}
+#| include: true
+CAP <-   "Total Probability of Exceedance (PoE) for maximum horizontal spectral accelerations with 5%% critical damping  Sa(Tn) in [g] for structural periodos Tn [s] ranging from %g to %g sec. Spectral ordinates were obtained assuming rock site conditions with Vs30 = %d m/s."
+
+Vs30_TARGET <- 760
+Vref_TARGET <- 760
+if (!exists("ID_TARGET")) ID_TARGET <- ID_gmdp
+if (!exists("p_TARGET")) p_TARGET <- p_gmdp
+# Tn_gmdp <- c(0,0.05,0.075,0.10,0.12,0.15,0.18,0.20,0.22,0.25,0.28,0.30,0.35,0.40,0.45,0.50,0.60,0.70,0.75,0.85,0.90,1.00,1.25,1.50,1.75,2.00,2.50,3.00,3.50,4.00,4.50,5.00)
+```
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP  |> sprintf(min(Tn_TARGET),max(Tn_TARGET),Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- Tn_gmdp
+source(file.path(root,"scripts","fig/POE.R"))
+PLOT
+```
+
+:::
+
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET, Vs30_TARGET, Vref_TARGET, Tn_TARGET)
+```

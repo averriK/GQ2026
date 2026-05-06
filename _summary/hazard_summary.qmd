@@ -1,0 +1,22 @@
+
+
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+TR_TARGET   <- c(TR_gmdp[3], last(TR_gmdp))
+ID_TARGET   <- "max"
+p_TARGET    <- "mean"
+Vs30_TARGET <- Vs30_gmdp
+PSA_Units   <- "cm/s2"
+
+source(file.path(root, "scripts", "setup", "summary", "hazard.R"))
+```
+* A probabilistic seismic hazard analysis (PSHA) was performed using the seismic sources and seismicity parameters from the Global Earthquake Model (GEM). Hazard values in terms of PGA and spectral ordinates were computed for `r SUMMARY$nTr` return periods (`r SUMMARY$trAllLabel` years) at reference-rock conditions ($v_{\mathrm{ref}}$ = `r SUMMARY$vref` m/s). The mean PGA at reference rock is `r SUMMARY$pgaMean[1]` g for AEP 1/`r SUMMARY$trLabel[1]` and `r SUMMARY$pgaMean[2]` g for AEP 1/`r SUMMARY$trLabel[2]` (`r SUMMARY$pgaP84[1]` g and `r SUMMARY$pgaP84[2]` g at the 84th percentile, respectively).
+> * Site amplification was estimated for site conditions with $v_{s,30}$ ranging from `r SUMMARY$vs30Min` to `r SUMMARY$vs30Max` m/s using the site-response model of Stewart et al. [-@Stewart2020] and Hashash et al. [-@Hashash2020]. The mean amplified PGA ranges from `r SUMMARY$pgaSiteMin[1]` to `r SUMMARY$pgaSiteMax[1]` g across site classes for AEP 1/`r SUMMARY$trLabel[1]`, and from `r SUMMARY$pgaSiteMin[2]` to `r SUMMARY$pgaSiteMax[2]` g for AEP 1/`r SUMMARY$trLabel[2]`. Design ground motions for all return periods and site conditions are summarised in section [-@sec-hazard]
+
+```{r}
+#| include: false
+rm(TR_TARGET, ID_TARGET, p_TARGET, Vs30_TARGET, PSA_Units, SUMMARY)
+```

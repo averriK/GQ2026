@@ -1,0 +1,27 @@
+
+
+```{r}
+#| include: false
+CAP <- "Design Ground Motions in terms of horizontal pseudo-spectral acceleration PSA [%s] for return periods ranging from %s to %s [yr] and structural periods Tn ranging from %g to %g [s]. Spectral ordinates were obtained assuming rock site conditions with Vs30 = %s [m/s]. (p=%s)"
+Vs30_TARGET <- 760
+TR_TARGET <- TR_gmdp
+if (!exists("PSA_Units")) PSA_Units <- "cm/s2"
+if (!exists("ID_TARGET")) ID_TARGET <- ID_max
+Tn_TARGET <- c(0.05,0.1,0.2,0.5,1.0,2.0,5.0)
+root <- here::here()          
+if (!exists("p_TARGET")) p_TARGET <- "mean"
+```
+
+```{r}
+#| include: true
+#| label: tbl-psa_760
+#| tbl-cap: !expr CAP  |> sprintf(PSA_Units,min(TR_TARGET), max(TR_TARGET), min(Tn_TARGET), max(Tn_TARGET),Vs30_TARGET, "mean")
+source(file.path(root,"scripts","tbl/PSA.R"))
+TBL
+```
+
+
+```{r}
+#| include: false
+rm(ID_TARGET, Tn_TARGET, p_TARGET, Vs30_TARGET, TR_TARGET, PSA_Units, CAP)
+```

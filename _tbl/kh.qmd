@@ -1,0 +1,104 @@
+```{r}
+#| include: true
+# Targets
+if (!exists("ID_TARGET"))  ID_TARGET  <- "max"
+if (!exists("IDg_TARGET")) IDg_TARGET <- IDg_gmdp
+if (!exists("Da_TARGET"))  Da_TARGET  <- sort(Da_gmdp)
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+root <- here::here()
+CAP <- "Performance-based seismic coefficients $k_{h}$ [%%PGA] as function of admissible residual displacement $D_a$ [cm] for all geometrical and hazard scenarios. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+```
+
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[6])
+TR_TARGET <- TR_gmdp[6]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+&nbsp;
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[2])
+
+TR_TARGET <- TR_gmdp[2]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[3]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[3])
+
+TR_TARGET <- TR_gmdp[3]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[4]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[4])
+
+TR_TARGET <- TR_gmdp[4]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[5]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[5])
+
+TR_TARGET <- TR_gmdp[5]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[6]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[6])
+
+TR_TARGET <- TR_gmdp[6]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[7]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[7])
+
+TR_TARGET <- TR_gmdp[7]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+### $`r TR_LABEL[8]`\,yr$
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(TR_gmdp[8])
+
+TR_TARGET <- TR_gmdp[8]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, IDg_TARGET, Da_TARGET, TR_TARGET, PSA_Units, CAP)
+```

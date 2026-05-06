@@ -1,0 +1,62 @@
+
+## <br>Seismic Coefficients $k_{max}$ {#sec-kmax}
+
+```{r}
+p_TARGET <- c(0.05,0.10,0.16,"mean", 0.84,0.90,0.95)
+```
+
+:::{.panel-tabset }
+
+### $k_{max}$ (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".max")
+```
+
+{{< include /_fig/kmax.qmd >}}
+
+### $k_{max}$ (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".max")
+```
+
+{{< include /_fig/kmax.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET)
+```
+
+## <br>Seismic Coefficients $k_{max}$
+
+```{r}
+p_TARGET <- c("mean", 0.84, 0.90, 0.95)
+```
+
+:::{.panel-tabset }
+
+### $k_{max}$ (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".max")
+```
+
+{{< include /_tbl/kmax.qmd >}}
+
+### $k_{max}$ (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".max")
+```
+
+{{< include /_tbl/kmax.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET)
+```

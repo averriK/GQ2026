@@ -1,0 +1,26 @@
+
+
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+TR_TARGET   <- last(TR_gmdp)        # 10,000
+IDg_TARGET  <- last(IDg_gmdp)       # max height
+IDm_TARGET  <- IDm_gmdp
+ID_TARGET   <- "max"
+p_TARGET    <- "mean"
+Da_TARGET   <- sort(Da_gmdp)
+Vs30_TARGET <- Vs30_gmdp
+PSA_Units   <- "cm/s2"
+
+source(file.path(root, "scripts", "setup", "summary", "slope.R"))
+```
+* The fundamental period of the sliding mass, required as input by the flexible-block models, was estimated using the Ishihara [-@Ishihara1997] stiffness model. For the reference geometry class `r SUMMARY$IDg` ($H_s$ = `r SUMMARY$Hs` m, slope gradient $s$ = `r SUMMARY$slope`, $\beta$ = `r SUMMARY$betaDeg` degrees, truncation ratio $\lambda_o$ = `r SUMMARY$lambdaO`, berm width $b$ = `r SUMMARY$berm` m), the fundamental period ranges from `r SUMMARY$tsMin` to `r SUMMARY$tsMax` s across `r SUMMARY$nIDm` material scenarios (USCS classifications). The maximum shear modulus $G_o$ ranges from `r SUMMARY$goMin` to `r SUMMARY$goMax` MPa, with base shear-wave velocity $v_S^o$ from `r SUMMARY$vsoMin` to `r SUMMARY$vsoMax` m/s. At the representative fundamental period ($T_s$ = `r SUMMARY$tsMed` s), the spectral acceleration at reference rock is $S_a(T_s)$ = `r SUMMARY$saTs` g for AEP 1/`r SUMMARY$trLabel`.
+* The horizontal seismic coefficient $k_{\max}$ was derived by inverting the Newmark sliding-block displacement framework: for a given target AEP and allowable displacement threshold $D_a$, $k_{\max}$ is the minimum yield acceleration for which the probability of the predicted permanent displacement exceeding $D_a$ is controlled at a specified exceedance level. Permanent displacements were estimated using an ensemble of `r SUMMARY$nWActive` Newmark models -- `r SUMMARY$nRigid` rigid-block and `r SUMMARY$nFlexible` flexible-block formulations -- with epistemic logic-tree weights: `r SUMMARY$wLabels`. The reference moment magnitude adopted is $M_w$ = `r SUMMARY$mw`. Ground-motion intensity measures for each model were sampled from the PSHA hazard fractiles with site amplification and inter-period correlation propagated jointly through `r SUMMARY$ns` Monte Carlo realizations per scenario. Amplification model uncertainty is represented by an independent lognormal dispersion $\sigma_{\ln F}$.
+* For geometry class `r SUMMARY$IDg` ($H_s$ = `r SUMMARY$Hs` m) and AEP 1/`r SUMMARY$trLabel`, design values of $k_h$ averaged across `r SUMMARY$nIDm` material scenarios are reported below. Values are given as mean and 84th-percentile estimates to characterise the variability arising from record-to-record ground-motion uncertainty propagated through `r SUMMARY$ns` Monte Carlo realisations. For a target Newmark displacement $D_a$ = `r SUMMARY$daS1` cm, $k_{\max}$ = `r SUMMARY$kmaxS1` [`r SUMMARY$units`], equivalent to $k_h \approx$ `r SUMMARY$khMeanS1` ~ `r SUMMARY$khP84S1`% (mean and 84th percentile). For $D_a$ = `r SUMMARY$daS2` cm, $k_h \approx$ `r SUMMARY$khMeanS2` ~ `r SUMMARY$khP84S2`%. Tabulated $k_{\max}$ values in [`r SUMMARY$units`] and $k_h$ values in [%PGA] for all combinations of material scenario, geometry, and return period are provided in section [-@sec-kmax] and [-@sec-kh].
+
+```{r}
+#| include: false
+rm(TR_TARGET, IDg_TARGET, IDm_TARGET, ID_TARGET, p_TARGET, Da_TARGET, Vs30_TARGET, PSA_Units, SUMMARY)
+```

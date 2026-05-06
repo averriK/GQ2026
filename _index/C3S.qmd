@@ -1,0 +1,21 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+
+
+# Site Response
+
+## Site-Response Model {#sec-site-response}
+
+{{< include /_chapters/site.qmd >}}
+
+
+## Site Response Spectra (UHS) {#sec-site_results_uhs}
+
+{{< include /_fig/UHS.qmd >}}
+
+{{< include /_tbl/PGA.qmd >}}
+

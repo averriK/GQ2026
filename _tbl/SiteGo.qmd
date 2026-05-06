@@ -1,0 +1,15 @@
+
+```{r}
+#| include: true
+#| label: tbl-ish1
+#| tbl-cap: "Shear Parameters"
+DT <- dsra::ShearModelParameters[,-c("ModelID","GroupID","UN")] |> setnames(,old=c("NameID","AuthorID"),new=c("Material","Author")) |> setcolorder(c("Material","Author","A","Ce","n","emin","emax"))
+
+Caption <- "Shear stiffness parameters for gravels, sands and fines"
+TBL <- DT |> buildTable(library="flextable",font.size.body = FONT.SIZE.BODY,font.size.header = FONT.SIZE.HEADER)
+TBL <- flextable::set_table_properties(TBL,layout = "autofit")
+
+
+TBL 
+```
+&nbsp;

@@ -1,0 +1,33 @@
+```{r}
+#| include: true
+#| label: tbl-scNBC
+#| tbl-cap: "Site Classification. Source: National Building Code of Canada NBC (2020)"
+
+SC=c("A","B","C","D","E","F")
+Description=c(
+  "Hard rocks",#A,>1500 m/s
+  "Rocks",#B,760 to 1500 m/s
+  "Very dense soils or soft rocks",#C 360 to 760 m/s
+  "Stiff soils", #D 180 to 360 m/s
+  "Soft soils",#E 140-180 m/s
+  "Other soils")#F
+
+Vs30=c(
+  ">1500 [m/s]",
+  ">760-1500 [m/s]",
+  ">360-760 [m/s]",
+  ">180-360 [m/s]",
+  ">140-360 [m/s]",
+  "<=140 [m/s]")
+
+DT <- data.table::data.table(
+  SC=SC,
+  Description=Description,
+  Vs30=Vs30)
+
+TBL <- DT |> buildTable(library="flextable",font.size.body = FONT.SIZE.BODY,font.size.header = FONT.SIZE.HEADER)
+TBL <- flextable::set_table_properties(TBL,layout = "autofit")
+
+TBL
+```
+&nbsp;

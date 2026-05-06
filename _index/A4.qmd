@@ -1,0 +1,26 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+
+# Design Criteria {#sec-criteria_appendix}
+
+## GISTM Guidelines {#sec-GISTM}
+
+{{< include /_tbl/gistm.qmd >}}
+
+## CDA Guidelines {#sec-CDA}
+
+{{< include /_tbl/cda.qmd >}}
+
+## ANCOLD Guidelines {#sec-ANCOLD}
+
+{{< include /_tbl/ancold.qmd >}}
+
+:::{.content-hidden when-format='docx'}
+
+{{< include /_chapters/criteria_MCER.qmd >}}
+
+:::

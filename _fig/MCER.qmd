@@ -1,0 +1,115 @@
+```{r}
+#| include: true
+
+CAP <-  "Site Response Spectra according to ASCE 7, for maximum horizontal spectral accelerations Sa(Tn) in [g] with 5%% critical damping assuming target AEP  1/%d [1/yr].  Spectral ordinates were obtained for site conditions with Vs30 ranging from %d to %d [m/s]"
+
+if (!exists("Vs30_TARGET")) Vs30_TARGET <- Vs30_gmdp
+if (!exists("ID_TARGET")) ID_TARGET <- "max"
+if (!exists("p_TARGET")) p_TARGET <- "mean"
+root <- here::here()          
+if (!exists("Sa_LOG")) Sa_LOG <- FALSE
+if (!exists("Tn_LOG")) Tn_LOG <- FALSE
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+
+```
+
+
+:::{.content-visible when-format='docx'}
+:::
+
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+
+#### $T_R\approx `r TR_LABEL[2]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce2
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[2]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[3]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce3
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[3]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[4]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce4
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[4]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[5]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce5
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[5]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[6]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce6
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[6]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[7]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce7
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[7]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### $`r TR_LABEL[8]`\,yr$
+
+```{r}
+#| include: true
+#| label: fig-asce8
+#| fig-cap: !expr CAP  |> sprintf(TR_TARGET,min(Vs30_TARGET),max(Vs30_TARGET))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+TR_TARGET <- TR_gmdp[8]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET, Vs30_TARGET, TR_TARGET, Sa_LOG, Tn_LOG)
+```

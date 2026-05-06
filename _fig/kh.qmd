@@ -1,0 +1,71 @@
+```{r}
+#| include: true
+if (!exists("p_TARGET"))   p_TARGET   <- c(0.05,0.10,0.16,"mean", 0.84,0.90,0.95)
+if (!exists("Da_TARGET"))  Da_TARGET  <- sort(Da_gmdp)
+if (!exists("PSA_Units"))  PSA_Units  <- "cm/s2"
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+CAP <- "Performance-based seismic coefficients $k_h$ in [%% PGA] as function of admissible residual displacement $D_a$ [cm] for geometry %s. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[3]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[4]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[5]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[6]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[7]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+### $`r TR_LABEL[8]`\,yr$
+```{r}
+#| include: true
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/kh_IDg.qmd >}}
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(p_TARGET, Da_TARGET, PSA_Units, TR_TARGET, IDg_TARGET, TR_LABEL, CAP)
+```

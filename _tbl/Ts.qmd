@@ -1,0 +1,195 @@
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("TR_TARGET"))   TR_TARGET   <- TR_gmdp[6]
+if (!exists("IDg_TARGET")) IDg_TARGET  <- IDg_gmdp[4]
+CAP <- "Fundamental Periods in [sec] and shear moduli in [MPa] for a slope of %d [m] height, for material classifications (USCS) representative of tailings storage facilities (TSF) and waste rock dumps (WRD)."
+```
+
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: tbl-IDg_0
+#| tbl-cap: !expr CAP |> sprintf(IDg_TARGET|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+&nbsp;
+:::
+
+
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg_gmdp[1]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_1
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[1]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[1]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[2]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_2
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[2]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[2]
+source(file.path(root,"scripts","tbl/Ts.R"))
+
+TBL
+```
+
+
+#### `r IDg_gmdp[3]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_3
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[3]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[3]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[4]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_4
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[4]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+if (!exists("IDg_TARGET")) IDg_TARGET  <- IDg_gmdp[4]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[5]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_5
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[5]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[5]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[6]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_6
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[6]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[6]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+
+#### `r IDg_gmdp[7]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_7
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[7]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[7]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+#### `r IDg_gmdp[8]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_8
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[8]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[8]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[9]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_9
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[9]|> gsub(pattern="S",replacement="") |> as.numeric())
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[9]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[10]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_10
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[10]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[10]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+#### `r IDg_gmdp[11]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_11
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[11]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[11]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg_gmdp[12]`
+
+```{r}
+#| include: true
+#| label: tbl-IDg_12
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[12]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p_TARGET <- c("mean")
+IDg_TARGET <- IDg_gmdp[12]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+:::
+
+
+:::
+
+
+```{r}
+#| include: false
+rm(IDg_TARGET, TR_TARGET, p_TARGET, CAP)
+```

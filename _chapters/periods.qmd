@@ -1,0 +1,37 @@
+
+Estimation of the fundamental period of a flexible sliding mass is a prerequisite for applying the flexible-block displacement models, all of which evaluate spectral acceleration at a period proportional to $T_n$. The base stiffness parameters required for this estimation - the maximum shear modulus $G_o$ and the shear-wave velocity $v_S^o$ at the embankment base - are established using the Ishihara stiffness model described in the following subsection.
+
+For an embankment or earth fill whose shear stiffness increases with depth according to a power-law profile $G(z) \approx G_o(z/H_{\max})^{m_o}$, the $j$th modal period $T_s^{(j)}$ is:
+
+$$T_s^{(j)} \simeq \frac{4\,\pi\,H_{\max}}{a^{(j)}\,(2 - m_o)\,v_S^{o}}$$
+
+In this expression, $H_{\max}$ is the maximum height of the embankment; $a^{(j)}$ is the $j$th eigenvalue of the characteristic equation governing the laterally constrained embankment under harmonic base excitation, which depends on the homogeneity ratio $m_o$ and the truncation ratio $\lambda_o$; and $v_S^{o} = \sqrt{G_o/\rho}$ is the shear-wave velocity at the base, where $G_o$ is the maximum shear modulus at depth $z = H_{\max}$ and $\rho$ is the mass density of the material. For practical evaluation of slope performance, the fundamental mode ($j = 1$) dominates, and the expression reduces to a function of the base shear-wave velocity, the maximum height, and two dimensionless geometric ratios.
+
+The truncation ratio $\lambda_o$ captures the geometric influence of the berm width $B_o$ on the dynamic response of the embankment:
+
+$$\lambda_o = \frac{B_o}{B_{\max}} = \frac{B_o}{2\,H_{\max}\,s + B_o}$$
+
+where $B_{\max} = 2\,H_{\max}\,s + B_o$ is the base width and $s$ is the reciprocal of the average slope gradient ($\tan\beta = 1/s$). The fundamental period increases with the truncation ratio $\lambda_o$ for a given height $H_{\max}$, reflecting the increasing influence of the berm width on the overall dynamic stiffness of the embankment.
+
+The homogeneity ratio $m_o$ reflects the power-law variation of the shear modulus with depth. A larger value of $m_o$ implies a steeper stiffness gradient from surface to base, which lengthens the fundamental period relative to the uniform-stiffness case because a greater fraction of the mass is supported by softer material near the surface. The eigenvalue $a^{(1)}$ is determined by solving the characteristic equation of the laterally constrained embankment, and its value depends jointly on $m_o$ and $\lambda_o$. In practice, the Ishihara [-@Ishihara1997] model is evaluated at multiple depths to construct a full $G(z)$ profile, which is then fitted to the power-law form to extract $G_o$, $v_S^o$, and $m_o$ for the relevant slope geometry and material.
+
+
+
+
+The estimation of maximum base stiffness is required for flexible-block Newmark analysis, because the shear-wave velocity at the base of the embankment - and thereby the fundamental period $T_n$ - depends on the small-strain shear modulus $G_o$. The shear modulus at arbitrary depth $z$ is estimated as a function of void ratio $e_o$ and octahedral effective stress $\sigma'_o(z)$ using the Ishihara formulation [@Ishihara1997]:
+
+$$G(z,\,e_o) \approx A\,\frac{(C_e - 1)^2}{1 + e_o}\,\left(\frac{\sigma'_o(z)}{p_{\mathrm{ref}}}\right)^n$$
+
+In this expression, $A$ is a dimensionless material-dependent amplitude constant; $C_e$ is a void-ratio shape parameter controlling the sensitivity of $G$ to void ratio; $e_o$ is the in-situ void ratio of the material; $p_{\mathrm{ref}}$ is a reference pressure (typically atmospheric, 101.3 kPa); $n$ is the stress exponent governing the power-law dependence of stiffness on confining pressure; and $\sigma'_o(z)$ is the octahedral effective stress at depth $z$. The model parameters $A$, $C_e$, and $n$ are determined from laboratory tests on undisturbed or remolded samples of the fill or native material - typically resonant column or bender element tests - and Ishihara [-@Ishihara1997] provides tabulated values for a range of soil types classified by USCS designation together with the corresponding void ratio ranges for which the correlations were calibrated.
+
+{{< include /_tbl/SiteGo.qmd >}}
+
+The maximum (small-strain) shear modulus $G_o$ corresponds to the evaluation at the base of the embankment, at depth $z = H_{\max}$, where the octahedral stress reaches its maximum value under the self-weight of the fill. Once $G_o$ is established, the base shear-wave velocity follows directly:
+
+$$v_S^{o} = \sqrt{\frac{G_o}{\rho}}$$
+
+where $\rho$ is the bulk mass density of the material at the base. The complete stiffness profile $G(z)$ over the full height of the embankment follows from the power-law expression with the estimated parameters, and the homogeneity ratio $m_o$ is determined by fitting the predicted profile $G(z)/G_o = (z/H_{\max})^{m_o}$ to the measured or inferred stiffness data.  In the context of TSF and WRD design, the relevant material types span the full range of materials - from coarse-grained rockfill and sandy tailings to fine-grained slime tailings - and the estimation is performed separately for each material zone contributing to the critical failure surface. 
+
+
+
+{{< include /_tbl/IDm.qmd >}}

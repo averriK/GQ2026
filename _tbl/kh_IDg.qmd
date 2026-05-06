@@ -1,0 +1,129 @@
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg_gmdp[1]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[1], IDg_gmdp[1] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[1]))"
+IDg_TARGET <- IDg_gmdp[1]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[2]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[2], IDg_gmdp[2] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[2]))"
+IDg_TARGET <- IDg_gmdp[2]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[3]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[3], IDg_gmdp[3] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[3]))"
+IDg_TARGET <- IDg_gmdp[3]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[4]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[4], IDg_gmdp[4] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[4]))"
+IDg_TARGET <- IDg_gmdp[4]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[5]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[5], IDg_gmdp[5] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[5]))"
+IDg_TARGET <- IDg_gmdp[5]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[6]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[6], IDg_gmdp[6] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[6]))"
+IDg_TARGET <- IDg_gmdp[6]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[7]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[7], IDg_gmdp[7] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[7]))"
+IDg_TARGET <- IDg_gmdp[7]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[8]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[8], IDg_gmdp[8] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[8]))"
+IDg_TARGET <- IDg_gmdp[8]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[9]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[9], IDg_gmdp[9] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[9]))"
+IDg_TARGET <- IDg_gmdp[9]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[10]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[10], IDg_gmdp[10] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[10]))"
+IDg_TARGET <- IDg_gmdp[10]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[11]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[11], IDg_gmdp[11] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[11]))"
+IDg_TARGET <- IDg_gmdp[11]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg_gmdp[12]`
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg_gmdp[12], IDg_gmdp[12] |> sub(pattern="^S",replacement="") |> as.numeric(), TR_TARGET)
+#| tbl-label: "!expr(sprintf('tbl-kh_TR%.0f_IDg%s', TR_TARGET, IDg_gmdp[12]))"
+IDg_TARGET <- IDg_gmdp[12]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+:::
+
+```{r}
+#| include: false
+rm(IDg_TARGET)
+```

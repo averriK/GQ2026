@@ -1,0 +1,38 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+# Design Ground Motions 
+
+## Design Criteria for Tailing Storage Facilities {#sec-criteria_TSF}
+
+{{< include /_chapters/criteria_TSF.qmd >}}
+
+## Design Ground Motions for `r params$site` project
+
+###  Operational Stages {#sec-criteria_results_obe}
+
+{{< include /_tbl/DEQ_OBE.qmd >}}
+
+
+{{< include /_fig/DEQ_OBE.qmd >}}
+
+
+
+### Closure Stages {#sec-criteria_results_sse}
+
+{{< include /_tbl/DEQ_SSE.qmd >}}
+
+
+{{< include /_fig/DEQ_SSE.qmd >}}
+
+
+### Post-Closure Stages  {#sec-criteria_results_pce}
+
+{{< include /_tbl/DEQ_PCE.qmd >}}
+
+
+{{< include /_fig/DEQ_PCE.qmd >}}
+

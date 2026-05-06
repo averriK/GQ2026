@@ -1,0 +1,29 @@
+&nbsp;
+
+```{r}
+#| include: true
+#| label: tbl-im1
+#| tbl-cap: "Coefficients for the parametric model to estimate peak values in terms of PGA.[@Verri2023a]"
+#| tbl-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+
+DT <- data.table(
+  IM = c("ARMS", "IA", "PGV", "VRMS", "CAV5", "PGD", "DRMS"),
+  b0 = c(-1.7429, 2.6109, 0.1241, -1.4672, -1.7688, -1.4114, -2.8609),
+  b1 = c(0.9981, 1.9228, 1.0529, 1.0587, 0.4212, 1.0922, 1.094),
+  b2 = c(0, 0, 0, 0, -0.0328, 0, 0),
+  "b3(S=1)" = c(0, 0, 0, 0, 0, 0, 0),
+  "b3(S=2)" = c(3e-04, 0.0922, -0.2534, -0.2642, 0.2329, -0.3872, -0.3816),
+  "b3(S=3)" = c(0.0111, 0.1855, -0.0787, -0.0516, 0.3374, -0.2113, -0.1913),
+  "b4(V=0)" = c(0, 0, 0, 0, 0, 0, 0),
+  "b4(V=1)"  = c(0.0433, 0.0653, 0.1109, 0.2123, -0.023, 0.3882, 0.4991),
+  sdLnI = c(0.1624, 0.5981, 0.5346, 0.6166, 0.709, 1.055, 1.1269)
+  # R2 = c(0.996, 0.986, 0.962, 0.951, 0.906, 0.871, 0.856),
+  # MSE = c(0.0264, 0.3577, 0.2858, 0.3801, 0.5027, 1.1131, 1.2698)
+)
+
+TBL <- DT |> buildTable(library="flextable",font.size.body = FONT.SIZE.BODY,font.size.header = FONT.SIZE.HEADER)
+TBL <- flextable::set_table_properties(TBL,layout = "autofit")
+
+TBL
+```
+&nbsp;

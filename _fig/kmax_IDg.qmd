@@ -1,0 +1,124 @@
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg_gmdp[1]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[1], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[1]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[2]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[2], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[2]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[3]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[3], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[3]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[4]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[4], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[4]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[5]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[5], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[5]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[6]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[6], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[6]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[7]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[7], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[7]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[8]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[8], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[8]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[9]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[9], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[9]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[10]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[10], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[10]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[11]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[11], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[11]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+#### `r IDg_gmdp[12]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(IDg_gmdp[12], TR_TARGET)
+#| fig-label: "!expr(sprintf('fig-kmax-%s', as.character(as.numeric(Sys.time()))))"
+IDg_TARGET <- IDg_gmdp[12]
+source(file.path(root, "scripts", "fig/kmax.R"))
+PLOT
+```
+
+:::

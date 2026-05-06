@@ -1,0 +1,43 @@
+
+```{r}
+#| include: true
+#| label: tbl-scASCE
+#| tbl-cap: "Site Classification. Source: American Society of Civil Engineers ASCE/SEI 7-22 (2022)"
+#| tbl-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+
+Caption <- "Site Classification. Source: American Society of Civil Engineers ASCE/SEI 7-22 (2022)"
+
+SC=c("A","B","BC","C","CD","D","DE","E","F")
+Description=c(
+  "Hard rock",#A,>1500 m/s
+  "Medium hard rock",#B,910 to 1500 m/s
+  "Soft rock",#BC 640 to 910 m/s
+  "Very dense soil or hard clay",#C 440 to 640 m/s
+  "Dense sand of very stiff clay", #CD 300 to 440 m/s
+  "Medium dense sand or stiff clay",#D 210 to 300 m/s
+  "Loose sand or medium stiff clay",#DE 150 to 210 m/s
+  "Very loose sand or soft clay",#E
+  "Soils requiring site response analysis (ASCE/SEI 7-22 21.1)")#F
+
+Vs30=c(
+  ">1500 [m/s]",
+  ">910-1500 [m/s]",
+  ">640-910 [m/s]",
+  ">440-640 [m/s]",
+  ">300-440 [m/s]",
+  ">210-300 [m/s]",
+  ">150-210 [m/s]",
+  "<=150 [m/s]",
+  "*See ASCE 7 section 20.2.1")
+
+DT <- data.table::data.table(
+  SC=SC,
+  Description=Description,
+  Vs30=Vs30)
+
+TBL <- DT |> buildTable(library="flextable",font.size.body = FONT.SIZE.BODY,font.size.header = FONT.SIZE.HEADER)
+TBL <- flextable::set_table_properties(TBL,layout = "autofit")
+
+TBL
+```
+&nbsp;

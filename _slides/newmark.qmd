@@ -1,0 +1,247 @@
+
+## <br>Newmark Displacements
+
+```{r}
+IDn_TARGET <- "ensemble"
+IDg_TARGET <- IDg_gmdp
+Da_TARGET  <- Da_gmdp
+p_TARGET   <- c("mean", 0.84)
+CAP <- "Newmark sliding-block model. Residual displacements [cm] for model %s. All geometrical scenarios shown. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+```
+
+:::{.panel-tabset }
+
+### $D_n$ (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".max")
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[3]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[4]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[5]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[6]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[7]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[8]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+:::
+
+### $D_n$ (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".max")
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[3]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[4]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[5]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[6]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[7]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+#### $`r TR_LABEL[8]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/Dn_IDn.qmd >}}
+
+:::
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, IDn_TARGET, IDg_TARGET, Da_TARGET, p_TARGET, TR_TARGET, TR_LABEL, CAP)
+```
+
+## <br>Newmark Displacements
+
+```{r}
+IDn_TARGET <- c(IDn_gmdp, "ensemble")
+Da_TARGET  <- Da_gmdp
+p_TARGET   <- c("mean", 0.84)
+CAP <- "Newmark sliding-block model. Residual displacements [cm] for geometry %s (scenario %d). All Newmark models shown. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+TR_LABEL <- prettyNum(TR_gmdp, big.mark = ",", scientific = FALSE)
+```
+
+:::{.panel-tabset }
+
+### $D_n$ (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".max")
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[3]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[4]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[5]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[6]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[7]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[8]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+:::
+
+### $D_n$ (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".max")
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_R\approx `r TR_LABEL[2]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[2]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[3]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[3]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[4]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[4]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[5]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[5]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[6]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[6]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[7]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[7]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+#### $`r TR_LABEL[8]`\,yr$
+```{r}
+TR_TARGET <- TR_gmdp[8]
+```
+{{< include /_fig/Dn_IDg.qmd >}}
+
+:::
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, IDn_TARGET, Da_TARGET, p_TARGET, TR_TARGET, TR_LABEL, CAP)
+```

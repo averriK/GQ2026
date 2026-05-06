@@ -1,0 +1,123 @@
+
+```{r}
+#| include: true
+CAP <- "Operational Design Earthquakes. Uniform Hazard Spectra (UHS) for maximum horizontal spectral accelerations Sa(Tn) in [g] with 5%% critical damping assuming site conditions with Vs30 = %d [m/s]."
+if (!exists("ID_TARGET"))       ID_TARGET       <- ID_max
+if (!exists("Standard_TARGET")) Standard_TARGET <- c("GISTM", "CDA", "ANCOLD")
+if (!exists("Sa_LOG"))          Sa_LOG          <- FALSE
+if (!exists("Tn_LOG"))          Tn_LOG          <- FALSE
+Stage_TARGET <- "Operation"
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+
+
+
+
+#### `r Site_LABEL[7]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[7])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[7]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site_LABEL[6]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[6])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[6]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site_LABEL[5]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[5])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[5]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site_LABEL[4]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[4])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[4]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site_LABEL[3]`
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[3])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[3]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+
+#### `r Site_LABEL[2]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[2])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[2]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site_LABEL[1]`
+
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(Vs30_gmdp[1])
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+Vs30_TARGET <- Vs30_gmdp[1]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, Standard_TARGET, Stage_TARGET, Vs30_TARGET, Sa_LOG, Tn_LOG, CAP)
+```

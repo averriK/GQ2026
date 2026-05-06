@@ -1,0 +1,56 @@
+
+&nbsp;
+
+```{r}
+#| include: true
+#| label: tbl-gistm
+#| tbl-cap: "GISTM Seismic Design Criteria by Consequence Class. Source: GISTM [-@gistm2020] . The Global Industry Standard on Tailings Management (GISTM) defines five consequence classes for tailings storage facilities (TSFs), each based on **Population at Risk (PAR)** and the severity of environmental and socio-economic impacts. For all classes, the Maximum Credible Earthquake (MCE) governs if it results in more severe ground motions than the probabilistic criterion. Post‑closure criteria are uniform across all classes. GISTM does not use OBE/SEE terminology or dual‑level design earthquakes."
+# --- GISTM 2020 (latest) ------------------------------------------------------
+DT <- data.table(
+  Class = c("Low", "Significant", "High", "Very High", "Extreme"),
+  PAR   = c("None", "1–10", "10–100", "100–1,000", ">1,000"),
+  Consequences = c(
+    "No expected loss of life; minimal off‑site impacts.",
+    "Minor but reportable off‑site impacts.",
+    "Major localized impacts, potential for multiple fatalities.",
+    "Substantial regional impacts, likely multiple fatalities.",
+    "Catastrophic, long‑term, widespread impacts, >100 likely fatalities."
+  ),
+  "Operation/Closure" = c("1/200",  "1/1,000", "1/2,500", "1/5,000", "1/10,000"),
+  "Passive Closure"  = c("1/10,000", "1/10,000", "1/10,000", "1/10,000", "1/10,000")
+)
+
+
+TBL <- DT |> buildTable(
+    library = "flextable",
+    align.body = "center",
+    font.size.body = FONT.SIZE.BODY,
+    font.size.header = FONT.SIZE.HEADER
+) |>
+  flextable::set_table_properties(layout = "autofit") |>
+  flextable::align(align = "left", part = "all") |>
+  flextable::footnote(
+    i = 1, j = "PAR", part = "header",
+    value = flextable::as_paragraph("PAR = Population at Risk (off‑site persons)"),
+    ref_symbols = "*"
+  ) |>
+  flextable::footnote(
+    i = 1, j = "Operation/Closure", part = "header",
+    value = flextable::as_paragraph(
+      "Probabilistic annual‑exceedance criteria during operations and active closure; MCE governs if larger."
+    ),
+    ref_symbols = "†"
+  ) |>
+  flextable::footnote(
+    i = 1, j = "Passive Closure", part = "header",
+    value = flextable::as_paragraph(
+      "Probabilistic annual‑exceedance criteria during passive closure."
+    ),
+    ref_symbols = "‡"
+  )
+TBL
+
+```
+
+&nbsp;
+

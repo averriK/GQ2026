@@ -1,0 +1,18 @@
+
+## <br>Design Criteria
+
+:::{.panel-tabset}
+
+#### GISTM Guidelines
+
+{{< include /_tbl/gistm.qmd >}}
+
+#### CDA Guidelines
+
+{{< include /_tbl/cda.qmd >}}
+
+#### ANCOLD Guidelines
+
+{{< include /_tbl/ancold.qmd >}}
+
+:::

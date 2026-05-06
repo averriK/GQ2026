@@ -1,0 +1,34 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+# Slope Design {#sec-newmar}
+
+
+## Standards, Guidelines, and Recommendations
+
+{{< include /_chapters/standards.qmd >}}
+
+## Performance-Based Seismic Coefficient Selection
+
+{{< include /_chapters/pbsd.qmd >}}
+
+## Newmark Displacement Models
+
+{{< include /_chapters/newmark.qmd >}}
+
+## Weighted Ensemble Model
+
+{{< include /_chapters/ensemble.qmd >}}
+
+## Fundamental Period Estimation {#sec-periods}
+
+{{< include /_chapters/periods.qmd >}}
+
+## Performance-Based Seismic Coefficient for `r params$site` site
+
+{{< include /_summary/slope_summary.qmd >}}
+
+

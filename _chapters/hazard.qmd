@@ -1,0 +1,29 @@
+Probabilistic Seismic Hazard Analysis (PSHA) is a methodology that quantifies earthquake ground-motion hazard at a site in terms of probabilities, by integrating over all possible earthquakes that could affect the site [@Cornell1968; @McGuire2004]. Unlike deterministic approaches that focus on a single scenario, PSHA considers the full range of magnitudes, locations, and associated ground motions, providing a comprehensive description of the rate at which various levels of shaking may be exceeded. In probabilistic seismic hazard analysis (PSHA), the annual frequency (rate) of exceeding a ground-motion level at a site is obtained by integrating over all possible earthquake scenarios. For a single seismic source $(s)$ with an annual occurrence rate of earthquakes (above a minimum magnitude $M_{\min}$) denoted $\nu_{0}^{(s)}$ (where $\nu_{0}^{(s)} = N(M_{\min})^{(s)}$), the rate of exceedance of a ground-motion level $i^*$ (e.g., a peak ground acceleration or spectral acceleration) is defined in [@eq-hazard-integral], where $m$ is earthquake magnitude, $\mathbf r$ is the source-to-site distance, $f_{M,s}(m)$ and $f_{\mathbf{R}\mid M,s}(\mathbf{r}\mid m)$ are the probability density functions describing the distribution of magnitudes and distances for source $(s)$, and $P\left[I > i^* \mid M=m,\,\mathbf r\right]$ is the conditional probability that the ground-motion parameter $I$ exceeds level $i^*$ given an event of magnitude $m$ at distance $\mathbf r$. $M_{\max}^{(s)}$ is the maximum considered magnitude for source $(s)$, which is related to the maximum credible earthquake (MCE) of that source.
+
+$$
+\lambda_I(i^*)^{(s)} \;=\;
+\nu_{0}^{(s)}
+\int_{M_{\min}}^{M_{\max}^{(s)}} \int_{D}
+P\left[ I > i^* \,\big|\, m, \mathbf{r} \right]\;
+f_{M,s}(m)\;
+f_{\mathbf{R}\mid M,s}(\mathbf{r}\mid m)\;
+\mathrm d\mathbf{r}\,\mathrm dm
+$${#eq-hazard-integral}
+
+The probability density functions (PDF) $f_{M,s}(m)$ and $f_{\mathbf{R}\mid M,s}(\mathbf{r}\mid m)$ describe the normalized distributions of earthquake magnitudes and locations within source $(s)$. This formulation is a direct application of the total-probability theorem in continuous form, integrating over all magnitudes and locations of earthquakes from source $(s)$ that could contribute to exceedance of level $i^*$. All *aleatory variability* in earthquake occurrence, earthquake size, earthquake location, and ground motion is thus accounted for through the integration [@McGuire2004; @Baker2021]. If multiple seismic sources contribute to the hazard at the site, the total annual exceedance rate $\lambda_I(i^*)$ is obtained by summing the contributions from all sources as in [@eq-hazard-sum]. Assuming $N_S$ independent sources, each with its own occurrence rate and distributions as above, the overall exceedance frequency for level $i^*$ is given by [@eq-hazard-sum], where $\lambda_I(i^*)^{(s)}$ is evaluated for each source via the hazard integral. This linear superposition is valid under the assumption that earthquake occurrences in different sources are independent (typically modeled as independent Poisson processes). The result is a seismic-hazard curve that quantifies the rate at which various ground-motion levels are exceeded at the site.
+
+$$
+\lambda_I(i^*) \;=\; \sum_{s=1}^{N_S} \lambda_I(i^*)^{(s)}
+$${#eq-hazard-sum}
+
+The GMPE thus enters PSHA through both its median prediction $\hat{\eta}_I$ and its total standard deviation $\sigma_{\ln I}$: small differences among competing GMPEs in either quantity can produce substantial differences in computed exceedance rates, particularly at long return periods where the hazard integral weights the upper tail of the log-normal distribution at several standard deviations above the median [@OpenQuakeEngine].
+
+The annual exceedance frequency $\lambda_I(i^*)$ obtained from the hazard integral [@eq-hazard-integral] can be interpreted as the mean number of times per year that intensity $i^*$ is exceeded. If we assume that exceedance events follow a Poisson process in time (a standard assumption in PSHA, owing to the Poissonian occurrence of earthquakes), then the probability of at least one exceedance in a single year is defined in [@eq-aep]^[For small $\lambda_{I}$ (hazard levels of practical interest are usually low probability), $P_{1\text{yr}} \approx \lambda_{I}$ (since $e^{-\lambda} \approx 1-\lambda$)].
+
+$$
+P_{1\text{yr}}[I > i^*] = 1 - \exp[-\lambda_I(i^*)] = \text{AEP}
+$${#eq-aep}
+
+By extension, the probability of exceedance in $T$ years is $P_{T}(I > i^*) = 1 - \exp[-\lambda_I(i^*) T]$ assuming stationarity and independence year-to-year. This relation allows conversion between a mean annual rate and a probability over $T$ years^[A common case is $T=50$ years (an approximate lifespan of structures); for example, if $\lambda_I(i^*) = 0.0021$ per year, then $P_{50}(I>i^*) = 1 - \exp(-0.0021 \times 50) \approx 0.10$, i.e. a 10% probability in 50 years.]. The **return period** $T_R$ (or **mean return interval**) is a statistical average defined as the reciprocal of the annual frequency of exceedance, usually expressed in years $T_R = \frac{1}{\lambda_I(i^*)}$^[For low probabilities, return period is approximately the inverse of AEP as well, since $\text{AEP} \approx \lambda_{I}$ for small $\lambda_{I}$.]
+
+

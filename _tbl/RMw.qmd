@@ -1,0 +1,20 @@
+```{r}
+#| include: false
+CAP <- "Seismic hazard deaggregation summary. Each cell reports the dominant Mw / R[km] pair. Rows: return period TR. Columns: structural period Tn."
+Tn_TARGET <- sort(unique(as.numeric(RMwTable$Tn)))
+TR_TARGET <- sort(unique(as.numeric(RMwTable$TR)))
+```
+
+```{r}
+#| include: true
+#| label: tbl-rmw-b
+#| tbl-cap: !expr CAP
+source(file.path(root,"scripts","tbl/RMw.R"))
+TBL
+```
+&nbsp;
+
+```{r}
+#| include: false
+rm(Tn_TARGET, TR_TARGET)
+```

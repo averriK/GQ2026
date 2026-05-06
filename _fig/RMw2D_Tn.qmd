@@ -1,0 +1,82 @@
+```{r}
+#| include: false
+CAP <- "Seismic hazard deaggregation (Mw-R) for Tn=%g s and TR=%s yr."
+Tn_RMw <- sort(unique(as.numeric(RMwTable$Tn)))
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_n=0$ (PGA)
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0, prettyNum(round(TR_TARGET,0), big.mark=","))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0
+source(file.path(root,"scripts","fig/RMw2D.R"))
+PLOT
+```
+
+#### $0.10\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.1, prettyNum(round(TR_TARGET,0), big.mark=","))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0.1
+source(file.path(root,"scripts","fig/RMw2D.R"))
+PLOT
+```
+
+#### $0.20\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.2, prettyNum(round(TR_TARGET,0), big.mark=","))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+Tn_TARGET <- 0.2
+source(file.path(root,"scripts","fig/RMw2D.R"))
+PLOT
+```
+
+#### $0.50\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.5, prettyNum(round(TR_TARGET,0), big.mark=","))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+##| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+Tn_TARGET <- 0.5
+source(file.path(root,"scripts","fig/RMw2D.R"))
+PLOT
+```
+
+#### $1.0\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(1.0, prettyNum(round(TR_TARGET,0), big.mark=","))
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+
+Tn_TARGET <- 1.0
+source(file.path(root,"scripts","fig/RMw2D.R"))
+PLOT
+```
+
+:::

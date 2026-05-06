@@ -1,0 +1,27 @@
+## <br>Pseudo-Spectral Accelerations
+
+:::{.panel-tabset .full-width }
+
+### PSA (`r ID_gmdp[1]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[1], ".site")
+```
+
+{{< include /_tbl/PSA.qmd >}}
+
+### PSA (`r ID_gmdp[2]`)
+
+```{r}
+ID_TARGET <- paste0(ID_gmdp[2], ".site")
+```
+
+{{< include /_tbl/PSA.qmd >}}
+
+
+:::
+
+```{r}
+#| include: false
+rm(ID_TARGET, p_TARGET)
+```

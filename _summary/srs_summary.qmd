@@ -1,0 +1,3 @@
+
+<!-- Seismic record selection summary — placeholder -->
+<!-- Maps to: _chapters/srs.qmd + Dynamic Site Response (C3S) -->

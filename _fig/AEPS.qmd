@@ -1,0 +1,93 @@
+```{r}
+#| include: false
+CAP <- "Annual Probability of Exceedance (AEP) for maximum horizontal spectral accelerations with 5%% critical damping  Sa(Tn) in [g] for a target structural periodo Tn = %g sec. Spectral ordinates were obtained assuming rock site conditions with Vs30 = %d m/s."
+Vs30_TARGET <- 760
+if (!exists("ID_TARGET"))  ID_TARGET  <- ID_gmdp
+if (!exists("Sa_LOG"))    Sa_LOG    <- TRUE
+if (!exists("AEP_LOG"))   AEP_LOG   <- TRUE
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_n=0$ (PGA)
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0, Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.10\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.1, Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0.1
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.20\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.2, Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0.2
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.50\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(0.5, Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 0.5
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $1.0\,s$
+```{r}
+#| include: true
+#| fig-cap: !expr CAP |> sprintf(1.0, Vs30_TARGET)
+#| fig-label: "!expr(sprintf('fig-%s', as.character(as.numeric(Sys.time()))))"
+#| column: body-outset
+#| out-width: "100%"
+#| fig-width: 10
+ 
+Tn_TARGET <- 1.0
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+:::
+
+:::
+```{r}
+#| include: false
+rm(ID_TARGET, Vs30_TARGET, Tn_TARGET, Sa_LOG, AEP_LOG)
+```
