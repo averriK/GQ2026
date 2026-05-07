@@ -36,7 +36,7 @@ This paper presents a performance-based seismic design framework for the prelimi
 
 A core element of the framework is the probabilistic selection of the horizontal seismic coefficient $k_h$: hazard fractiles from a site-specific probabilistic seismic hazard analysis are propagated through a nonlinear site-amplification model and a logic-tree ensemble of empirical Newmark sliding-block models to yield quantile estimates of $k_{\max}$ at user-defined displacement thresholds.
 
-By explicitly accounting for uncertainty in the seismic hazard and in the site-amplification response, the methodology delivers mean and quantile estimates of the seismic coefficient. Applied to a `r SUMMARY$Hs` m embankment on glaciolacustrine foundation at $T_R = `r SUMMARY$trLabel`$ yr, the procedure yields $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) at a target displacement of `r SUMMARY$DaRows[[2]]$Da` cm.
+By explicitly accounting for uncertainty in the seismic hazard and in the site-amplification response, the methodology delivers mean and quantile estimates of the seismic coefficient. Applied to a TSF embankment system `r SUMMARY$Hs` m deep to hard ground on glaciolacustrine foundation at $T_R = `r SUMMARY$trLabel`$ yr, the procedure yields $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) at a target displacement of `r SUMMARY$DaRows[[2]]$Da` cm.
 
 ## RESUME
 
@@ -44,7 +44,7 @@ Cet article présente un cadre de conception sismique basé sur la performance p
 
 Un élément central du cadre est la sélection probabiliste du coefficient sismique horizontal $k_h$ : les fractiles de l'aléa issus d'une analyse probabiliste de l'aléa sismique spécifique au site sont propagés à travers un modèle non linéaire d'amplification de site et un ensemble logique de modèles empiriques de déplacement de type Newmark, afin de produire des estimations quantiles de $k_{\max}$ pour des seuils de déplacement définis par l'utilisateur.
 
-En tenant explicitement compte des incertitudes dans l'aléa sismique et dans la réponse d'amplification de site, la méthodologie fournit des estimations moyennes et quantiles du coefficient sismique. Appliquée à une digue de `r SUMMARY$Hs` m sur fondation glaciolacustre pour $T_R = `r SUMMARY$trLabel`$ ans, la procédure donne $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) pour un déplacement cible de `r SUMMARY$DaRows[[2]]$Da` cm.
+En tenant explicitement compte des incertitudes dans l'aléa sismique et dans la réponse d'amplification de site, la méthodologie fournit des estimations moyennes et quantiles du coefficient sismique. Appliquée à un système de digues de `r SUMMARY$Hs` m de profondeur jusqu'au sol dur, sur fondation glaciolacustre, pour $T_R = `r SUMMARY$trLabel`$ ans, la procédure donne $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) pour un déplacement cible de `r SUMMARY$DaRows[[2]]$Da` cm.
 
 ## INTRODUCTION
 
@@ -145,13 +145,41 @@ $$\bar{k}_\text{max}(d^*) = \frac{1}{N_S}\sum_{n=1}^{N_S} k_\text{max}^{(n)}(d^*
 
 The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of F2: the smallest $k_y$ such that the estimated exceedance probability is bounded at $p$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the design value as a percentage of the mean rock-level PGA at $T_R$.
 
-## Numerical application — Part 1: Seismic coefficient estimation
+## Numerical application
 
-The calculations are carried out with the `newmark` R package [@Verri2017], which implements the procedure of @Verri2026.
+The methodology is applied to a tailings storage facility in southwestern Quebec, Canada, subject to post-closure seismic requirements under the @MERN2024 guidelines. The facility comprises a series of containment embankments constructed on proximal glaciolacustrine deposits of the Barlow–Ojibway clay complex, with the tallest segment reaching approximately 13 m above the foundation surface. The total depth of the sliding system to hard ground is `r SUMMARY$Hs` m — the height governing the shear-beam fundamental period $T_s$ — and the site fill is classified as `r SUMMARY$USCS` with $V_{S30} = `r SUMMARY$vs30`$ m/s. Post-closure compliance under @MERN2024 requires that the facility withstand seismic events with $T_R = `r SUMMARY$trLabel`$ yr without catastrophic failure.
+
+The embankments are constructed of compacted sand and gravel with a geomembrane clay liner (GCL) on the upstream slopes. The operating water level maintains a permanent freeboard of 2.0 m; the downstream slopes are classified as "Significant" consequence class under CDA guidelines.
+
+Beneath the glaciolacustrine clays, a stratified silt unit exhibits sand‑like or transitional behaviour and is predominantly dilative, as confirmed by isotropically consolidated undrained (ICU) triaxial tests on undisturbed 3-inch Osterberg samples (Figures 1–3). Shear‑wave velocities were measured with seismic piezocone soundings; the resulting $V_s$ profiles are presented in Figure 5.
+
+![](media/image2.jpg){width="100%"}
+
+**Figure 1** Modified Robertson (2016) SBTn chart from a CPTu performed beneath the dam crest
+
+![](media/image3.png){width="100%"}
+
+**Figure 2** Modified Robertson (2016) SBTn and clean sand equivalent profile for a CPTu performed beneath the dam crest
+
+A screening‑level liquefaction assessment was conducted following @YoudEtAl2001, based on comparison of cyclic resistance ratio (CRR) and cyclic stress ratio (CSR), to confirm the suitability of pseudo‑static slope stability analyses [@MakdisiSeed1977]. The foundation soils are predominantly non‑liquefiable (Figure 4), supporting the use of pseudo‑static factor-of-safety analyses for the seismic stability assessment.
+
+![](media/image4.png){width="100%"}
+
+**Figure 3** Undrained triaxial test performed on the fluvioglacial material
+
+![](media/image5.png){width="100%"}
+
+**Figure 4** Example of a CRR vs CSR profile for a magnitude 7.0 earthquake
+
+![](media/image6.png){width="100%"}
+
+**Figure 5** Measured $V_s$ profiles across the site
+
+Site-specific seismic hazard was evaluated in conformance with the @MERN2024 guidelines using the probabilistic hazard model underlying the National Building Code of Canada. The calculations are carried out with the `newmark` R package [@Verri2017], which implements the procedure of @Verri2026.
 
 In this application, `r SUMMARY$ns` correlated realisations are drawn from the PSHA hazard fractiles. Rock-level spectral accelerations are amplified using the nonlinear site-amplification model of @SeyhanStewart2014. The logic-tree ensemble includes four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
 
-The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s), placing the flexible-block reference periods at $1.5\,T_s = `r SUMMARY$T15Ts`$ s and $1.3\,T_s = `r SUMMARY$T13Ts`$ s.
+The sliding system spans `r SUMMARY$Hs` m from crest to hard ground (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m). Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s), placing the flexible-block reference periods at $1.5\,T_s = `r SUMMARY$T15Ts`$ s and $1.3\,T_s = `r SUMMARY$T13Ts`$ s.
 
 At $T_R = `r SUMMARY$trLabel`$ yr, the mean rock-level PGA (reference $V_{S30} = `r SUMMARY$vrockLabel`$ m/s) is $\overline{\mathrm{PGA}}_\text{rock} = `r SUMMARY$pga`$ g, with the 84th-percentile reaching $`r SUMMARY$pga84rock`$ g. The mean spectral accelerations at the flexible-block reference periods are $\bar{S}_{a,\text{rock}}(1.5\,T_s) = `r SUMMARY$sa15TsRock`$ g and $\bar{S}_{a,\text{rock}}(1.3\,T_s) = `r SUMMARY$sa13TsRock`$ g.
 
@@ -172,43 +200,13 @@ DT_kmax <- data.table(
 knitr::kable(DT_kmax, align = "c")
 ```
 
-For the intermediate displacement target $d^* = `r SUMMARY$DaRows[[2]]$Da`$ cm, the mean seismic coefficient $\bar{k}_\text{max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ and its 84th-percentile $k_\text{max}^{(84\%)} = `r SUMMARY$DaRows[[2]]$kmax84`$ jointly reflect the uncertainty propagated from the rock-level hazard fractiles through site amplification and the model ensemble; the corresponding normalised pseudostatic coefficient is $K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$ of $\overline{\mathrm{PGA}}_\text{rock}$.
+For the intermediate displacement target $d^* = `r SUMMARY$DaRows[[2]]$Da`$ cm, the mean seismic coefficient $\bar{k}_\text{max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ and its 84th-percentile $k_\text{max}^{(84\%)} = `r SUMMARY$DaRows[[2]]$kmax84`$ jointly reflect the uncertainty propagated from the rock-level hazard fractiles through site amplification and the model ensemble; the corresponding normalised pseudostatic coefficient is $K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$ of $\overline{\mathrm{PGA}}_\text{rock}$. The $k_{\max}$ values in @tbl-kmax were applied as the horizontal pseudo-static seismic coefficient in limit-equilibrium stability analyses of the embankment cross-sections, confirming that the embankments satisfy the @MERN2024 displacement criteria under the $T_R = `r SUMMARY$trLabel`$ yr design earthquake.
 
 ```{r}
 #| include: false
 rm(TR_TARGET, IDg_TARGET, IDm_TARGET, ID_TARGET, VS30_TARGET,
    DA_TARGET, p_TARGET, PSA_Units, SUMMARY, DT_kmax)
 ```
-
-## Numerical application — Part 2: Stability assessment
-
-The TSF comprises a series of containment embankments founded on proximal glaciolacustrine deposits of the Barlow–Ojibway clay complex. The embankments are constructed of compacted sand and gravel, with a geomembrane clay liner (GCL) placed on the upstream slopes. The tallest embankment segment is approximately 13 m in height, while the lowest is about 2.5 m. The operating water level allows of a permanent freeboard of 2.0 m. The downstream slope of the embankments are considered as not erodible and these are classified as having a "Significant" classification as per the CDA guidelines.
-
-Beneath the glaciolacustrine clays, a stratified silt unit is present. As illustrated in Figures 2 and 3, this unit exhibits sand‑like or transitional behaviour and is predominantly dilative. Isotropically consolidated undrained (ICU) triaxial tests performed on undisturbed samples recovered using a 3‑inch Osterberg sampler confirm this dilative response (Figure 3). To characterize the small‑strain stiffness profile and dynamic properties of this sequence, shear‑wave velocities (Vs) were measured using seismic piezocone soundings; the resulting Vs profiles across the site are presented in Figure 5.
-
-![](media/image2.jpg){width="100%"}
-
-**Figure 1** Modified Roberston (2016) SBTn chart from a CPTu performed beneath the dam crest
-
-![](media/image3.png){width="100%"}
-
-**Figure 2** Modified Robertson (2016) SBTn and clean sand equivalent profile for a CPTu performed benath the dam crest
-
-Given that the objective of this study was to evaluate the long‑term performance of the TSF and inform the selection and refinement of a reclamation concept compliant with [@MERN2024] requirements, a screening‑level liquefaction assessment was first undertaken. The purpose of this step was to confirm whether pseudo‑static slope stability analyses would be appropriate for the site conditions as discussed by [@MakdisiSeed1977].
-
-The liquefaction screening assessment was conducted following the methodology of [@YoudEtAl2001], based on comparison of cyclic resistance ratio (CRR) and cyclic stress ratio (CSR). As shown in Figure 4, the results indicate that the foundation soils are predominantly non‑liquefiable, thereby supporting the use of pseudo‑static FoS as a reliable basis for assessing the seismic stability or performance of the embankments.
-
-![](media/image4.png){width="100%"}
-
-**Figure 3** Undrained triaxial test performed on the fluvioglacial material
-
-![](media/image5.png){width="100%"}
-
-**Figure 4** Example of a CRR vs CSR profile for an earthquake with a magnitude of 7.00
-
-![](media/image6.png){width="100%"}
-
-**Figure 5** Measured Vs profiles across the site
 
 ## Closing remarks
 
