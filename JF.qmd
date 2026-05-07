@@ -147,7 +147,9 @@ The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of
 
 ## Numerical application — Part 1: Seismic coefficient estimation
 
-The procedure of @Verri2026 is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the ST17 nonlinear site-amplification model [@SeyhanStewart2014] and a logic-tree ensemble of four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
+The calculations are carried out with the `newmark` R package [@Verri2017], which implements the procedure of @Verri2026.
+
+In this application, `r SUMMARY$ns` correlated realisations are drawn from the PSHA hazard fractiles. Rock-level spectral accelerations are amplified using the nonlinear site-amplification model of @SeyhanStewart2014. The logic-tree ensemble includes four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
 
 The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s), placing the flexible-block reference periods at $1.5\,T_s = `r SUMMARY$T15Ts`$ s and $1.3\,T_s = `r SUMMARY$T13Ts`$ s.
 
