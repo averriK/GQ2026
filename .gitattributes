@@ -1,0 +1,5 @@
+oq/**/*.hdf5 filter=lfs diff=lfs merge=lfs -text
+oq/**/*.h5 filter=lfs diff=lfs merge=lfs -text
+oq/**/*.csv filter=lfs diff=lfs merge=lfs -text
+oq/**/*.npz filter=lfs diff=lfs merge=lfs -text
+oq/**/*.db filter=lfs diff=lfs merge=lfs -text

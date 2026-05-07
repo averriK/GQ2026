@@ -6,20 +6,20 @@ bibliography: bib/Verri.bib
 
 # Probabilistic estimation of Newmark displacements and seismic coefficients under hazard uncertainty
 
-> **Working paper, draft.** This draft contains the methodology only; abstract, case study, discussion, conclusion, and a publication-ready bibliography are out of scope until each can be grounded in source material. Symbol conventions: $T_s$ for the fundamental period of the sliding mass, $D_a$ for the admissible target displacement, $k_y$ for the dimensionless yield coefficient, $k_\text{max}$ for the design seismic yield coefficient, and $K_h$ for its normalised form expressed as a percentage of the rock-level mean PGA. All methodology items have been resolved at this draft stage; pending items refer only to the case-study-specific weight vector $w_i$ in §7.1 and the operational defaults for $N_S$ / $N_k$.
+> **Working paper, draft.** This draft contains the methodology only; abstract, case study, discussion, conclusion, and a publication-ready bibliography are out of scope until each can be grounded in source material. Symbol conventions: $T_s$ for the fundamental period of the sliding mass, $d^*$ for the admissible target displacement, $k_y$ for the dimensionless yield coefficient, $k_\text{max}$ for the design seismic yield coefficient, and $K_h$ for its normalised form expressed as a percentage of the rock-level mean PGA. All methodology items have been resolved at this draft stage; pending items refer only to the case-study-specific weight vector $w_i$ in §7.1 and the operational defaults for $N_S$ / $N_k$.
 
 ## Introduction
 
 The geotechnical stability of embankments — including the containment dykes of tailings storage facilities (TSFs) and waste rock dumps (WRDs) — is most commonly assessed in routine practice through deterministic limit-equilibrium analyses. A factor of safety (FoS) is computed for prescribed loading conditions and fixed input parameters describing loads and resistances. For the seismic component of the design, the dynamic effect of earthquake shaking is simplified and represented as an equivalent static horizontal force, proportional to a dimensionless seismic coefficient $k_h$ and to the weight of the potential sliding mass. Historically, the value of $k_h$ has been selected either as a fixed fraction of the regional design peak ground acceleration (PGA) or by engineering judgement informed by precedent. Both routes collapse the uncertainty budget of the underlying problem into a single deterministic value, and they sever the link between $k_h$ and the engineering quantity that
 performance-based design constrains: the permanent co-seismic displacement that the slope is required to tolerate without loss of containment.
 
-Performance-based extensions of pseudo-static analysis tie $k_h$ to a tolerable displacement $D_a$. The Bray and Travasarou [-@BrayTravasarou2007] flexible-block displacement model and the inversion procedure in Bray and Travasarou [-@BrayTravasarou2009] define the design coefficient — denoted $k_\text{max}(D_a)$ — as the smallest yield coefficient $k_y$ for which the probability that $D(k_y) > D_a$ is bounded by a target $p$. Subsequent work by Bray, Macedo and co-authors [@BrayEtAl2018; @BrayMacedo2019; @BrayMacedo2023] refines and extends the displacement regression to subduction-zone interface and intraslab earthquakes and to shallow crustal events (with the 2023 dispersion correction). Code-based and standards-based recommendations sit alongside this work: USACE EM 1110-2-1902 and EM 1110-2-2100 [@USACE2003; @USACE2005] endorse Newmark sliding-block analysis as a deformation check supplementing the pseudo-static factor-of-safety analysis; NCHRP Report 611 [@AndersonEtAl2008]
+Performance-based extensions of pseudo-static analysis tie $k_h$ to a tolerable displacement $d^*$. The Bray and Travasarou [-@BrayTravasarou2007] flexible-block displacement model and the inversion procedure in Bray and Travasarou [-@BrayTravasarou2009] define the design coefficient — denoted $k_\text{max}(d^*)$ — as the smallest yield coefficient $k_y$ for which the probability that $D(k_y) > d^*$ is bounded by a target $p$. Subsequent work by Bray, Macedo and co-authors [@BrayEtAl2018; @BrayMacedo2019; @BrayMacedo2023] refines and extends the displacement regression to subduction-zone interface and intraslab earthquakes and to shallow crustal events (with the 2023 dispersion correction). Code-based and standards-based recommendations sit alongside this work: USACE EM 1110-2-1902 and EM 1110-2-2100 [@USACE2003; @USACE2005] endorse Newmark sliding-block analysis as a deformation check supplementing the pseudo-static factor-of-safety analysis; NCHRP Report 611 [@AndersonEtAl2008]
 codifies a displacement-based pseudo-static recommendation; EN 1998-5 [@CEN2004] admits Newmark-style displacement evaluation as a simplified option; ICOLD Bulletin 148 [@ICOLD2016] endorses Newmark for moderate-to-high consequence dams; the Canadian Dam Association Technical Bulletins [@CDA2019] and the Quebec MERN guidelines [@MERN2024] endorse Newmark for tailings-dam closure design. Across these documents the common caveat is that the selection of $k_h$ must reflect project-specific conditions.
 
 Three properties of the published procedures motivate the approach taken here. First, the input ground-motion intensity measures are typically treated as deterministic mean values from probabilistic seismic hazard analysis (PSHA), and the local site amplification factor is handled either through GMPE site terms or, when an external site-response analysis is performed, by collapsing its lognormal distribution to a mean. Both shortcuts ignore the fractile description of the uniform-hazard spectrum that contemporary PSHA workflows actually deliver — a discrete set of fractiles per oscillator period and per return period that integrates the GMM and seismic-source logic-trees and the GMPE total $\sigma$ over the hazard integral. Second, the choice of a single empirical Newmark relationship collapses the epistemic uncertainty associated with model selection: different regressions are calibrated against datasets of different size, vintage, and tectonic scope, and an explicit logic-tree over
 alternative regressions follows the same logic that PSHA already applies on the GMM side. Third, the propagation of aleatory residuals across multiple displacement models requires an explicit assumption about cross-model residual dependence: drawing independent residuals per model amounts to assuming uncorrelated residuals, which underestimates the joint variability of the ensemble; drawing a single residual per realisation across all models amounts to assuming perfect cross-model correlation, the strongest possible assumption in this direction. The procedure described here adopts the perfect-cross-model-correlation form ($\rho = 1$) as a working assumption documented as such in §10; intermediate cross-model correlations are an obvious refinement direction.
 
-No new empirical regression, site-amplification model, or correlation model is introduced. The procedure described here integrates existing tools into a single Monte Carlo loop that (i) consumes the PSHA output in fractile form, (ii) propagates rock-level inter-period dependence through the full Baker and Jayaram [-@BakerJayaram2008] inter-period correlation matrix (§5.2), (iii) applies a published lognormal site-amplification model with its own dispersion, (iv) runs a logic-tree-weighted combination of six empirical Newmark relationships with a single shared aleatory residual per realisation, (v) projects each per-realisation displacement curve to enforce monotonicity in $k_y$ before inversion, and (vi) reports the design $k_\text{max}(D_a)$ together with an uncertainty band.
+No new empirical regression, site-amplification model, or correlation model is introduced. The procedure described here integrates existing tools into a single Monte Carlo loop that (i) consumes the PSHA output in fractile form, (ii) propagates rock-level inter-period dependence through the full Baker and Jayaram [-@BakerJayaram2008] inter-period correlation matrix (§5.2), (iii) applies a published lognormal site-amplification model with its own dispersion, (iv) runs a logic-tree-weighted combination of six empirical Newmark relationships with a single shared aleatory residual per realisation, (v) projects each per-realisation displacement curve to enforce monotonicity in $k_y$ before inversion, and (vi) reports the design $k_\text{max}(d^*)$ together with an uncertainty band.
 
 The remainder of this draft is the methodology proper. Section 2 states the inverse problem. Section 3 introduces the probabilistic functional form. Section 4 specifies the six empirical models. Section 5 describes PSHA-driven scenario sampling. Section 6 specifies the site-amplification model. Section 7 details the realisation structure and the cross-model residual treatment. Section 8 covers the monotone projection and the inversion. Section 9 covers statistical reporting and the seismic coefficient. Section 10 consolidates the modelling hypotheses.
 
@@ -27,19 +27,19 @@ The remainder of this draft is the methodology proper. Section 2 states the inve
 
 ## Problem statement
 
-Let $D(k_y)$ denote the random permanent co-seismic displacement at the toe of a sliding mass governed by a yield acceleration $k_y g$, where $k_y \in (0, k_{y,\max})$ is the dimensionless yield coefficient and $g$ is gravitational acceleration. The performance-based design problem is to choose, for a given target tolerable displacement $D_a > 0$ and a target exceedance probability $p \in (0, 1)$, the smallest $k_y$ such that the displacement induced at the design return period $T_R$ remains below $D_a$ with probability at least $1 - p$:
+Let $D(k_y)$ denote the random permanent co-seismic displacement at the toe of a sliding mass governed by a yield acceleration $k_y g$, where $k_y \in (0, k_{y,\max})$ is the dimensionless yield coefficient and $g$ is gravitational acceleration. The performance-based design problem is to choose, for a given target tolerable displacement $d^* > 0$ and a target exceedance probability $p \in (0, 1)$, the smallest $k_y$ such that the displacement induced at the design return period $T_R$ remains below $d^*$ with probability at least $1 - p$:
 
 $$
-k_\text{max}(p \mid D_a, T_R)
+k_\text{max}(p \mid d^*, T_R)
 \;=\;
-\inf\!\Bigl\{\,k_y \,:\, P\!\bigl[\,D(k_y; T_R) > D_a\,\bigr] \,\leq\, p\,\Bigr\}.
+\inf\!\Bigl\{\,k_y \,:\, P\!\bigl[\,D_N(k_y; T_R) > d^*\,\bigr] \,\leq\, p\,\Bigr\}.
 $$
 
 The probability above is taken with respect to the full uncertainty budget of the displacement: the joint distribution of intensity measures at rock level produced by the PSHA at return period $T_R$, the lognormal distribution of the site-amplification factor that converts rock to surface, and the regression residual of the empirical Newmark relationship that maps surface intensities to displacement.
 
-The right-hand side has no closed form: the distribution of $D(k_y)$ at fixed $k_y$ has no analytical expression because none of the three contributing distributions does, and their convolution does not admit one. In practice, the analyst is interested in a tabulated map $D_a \mapsto k_\text{max}(p \mid D_a, T_R)$ over a range of $D_a$ values (typically $D_a \in [0.5, 1000]$ cm in steps relevant to facility consequence classification) and over a range of return periods (typically AEP $1/100$ to AEP $1/10\,000$).
+The right-hand side has no closed form: the distribution of $D(k_y)$ at fixed $k_y$ has no analytical expression because none of the three contributing distributions does, and their convolution does not admit one. In practice, the analyst is interested in a tabulated map $d^* \mapsto k_\text{max}(p \mid d^*, T_R)$ over a range of $d^*$ values (typically $d^* \in [0.5, 1000]$ cm in steps relevant to facility consequence classification) and over a range of return periods (typically AEP $1/100$ to AEP $1/10\,000$).
 
-The Monte Carlo framework developed in §§3–9 evaluates the inverse mapping numerically. For each realisation $s$, the framework draws from each contributing distribution and computes a per-realisation displacement curve $D_{i,s}(k_y)$ for each model $i$ in the ensemble, an ensemble-weighted curve $D_{\text{ens},s}(k_y)$, and, by inversion, a per-realisation yield coefficient $k_{\text{max},s}(D_a)$. The empirical distribution of $\{k_{\text{max},s}(D_a)\}_{s=1}^{N_S}$ over $N_S$ realisations approximates the inverse mapping; mean and selected percentiles summarise the design value and the uncertainty band.
+The Monte Carlo framework developed in §§3–9 evaluates the inverse mapping numerically. For each realisation $n$, the framework draws from each contributing distribution and computes a per-realisation displacement curve $d_N^{(i,n)}(k_y)$ for each model $(i)$ in the ensemble, an ensemble-weighted curve $d_\text{ens}^{(n)}(k_y)$, and, by inversion, a per-realisation yield coefficient $k_\text{max}^{(n)}(d^*)$. The empirical distribution of $\{k_\text{max}^{(n)}(d^*)\}_{n=1}^{N_S}$ over $N_S$ realisations approximates the inverse mapping; mean and selected percentiles summarise the design value and the uncertainty band.
 
 Throughout the paper, displacements are in centimetres, accelerations in units of $g$, peak ground velocity in cm s$^{-1}$, Arias intensity $\mathrm{AI}$ in m s$^{-1}$, oscillator and sliding-mass periods in seconds, and shear-wave velocities in m s$^{-1}$.
 
@@ -50,16 +50,16 @@ Throughout the paper, displacements are in centimetres, accelerations in units o
 Each empirical Newmark displacement model $i$ in the ensemble predicts the natural logarithm of permanent displacement at a given yield acceleration $k_y$ and intensity-measure set $\boldsymbol{\mathrm{IM}}$ as a deterministic conditional mean plus a Gaussian residual:
 
 $$
-\ln D_i\!\bigl(k_y, \boldsymbol{\mathrm{IM}}\bigr)
+\ln d_N^{(i)}\!\bigl(k_y, \mathbf{I}\bigr)
 \;=\;
-\mu_{\ln D,\,i}\!\bigl(k_y, \boldsymbol{\mathrm{IM}}\bigr)
+\mu_{\ln D_N}^{(i)}\!\bigl(k_y, \mathbf{I}\bigr)
 \;+\;
-\sigma_{\ln D,\,i}\;\varepsilon,
+\sigma_{\ln D_N}^{(i)}\;z,
 \qquad
-\varepsilon \sim \mathcal{N}(0,1).
+z \sim \mathcal{N}(0,1).
 $$
 
-The mean function $\mu_{\ln D,\,i}$ is the regression mean published by the model's author against a calibration dataset of strong-motion records, and $\sigma_{\ln D,\,i}$ is the corresponding regression standard deviation in natural-log space. The residual $\varepsilon$ captures record-to-record variability not explained by the predictors of model $i$. The functional form is shared across the six retained models; the model index enters through the functional form of the mean, the magnitude of the dispersion, and the choice of intensity measures.
+The mean function $\mu_{\ln D_N}^{(i)}$ is the regression mean published by the model's author against a calibration dataset of strong-motion records, and $\sigma_{\ln D_N}^{(i)}$ is the corresponding regression standard deviation in natural-log space. The residual $z$ captures record-to-record variability not explained by the predictors of model $(i)$. The functional form is shared across the six retained models; the model index enters through the functional form of the mean, the magnitude of the dispersion, and the choice of intensity measures.
 
 The intensity-measure set $\boldsymbol{\mathrm{IM}}$ is model-dependent and may include any subset of $\{\mathrm{PGA},\,S_a(T),\,\mathrm{PGV},\,\mathrm{AI},\,T_s,\,M_w\}$, where $T_s$ is the fundamental period of the sliding mass and $M_w$ is the earthquake moment magnitude. The ratio $r = k_y / \mathrm{PGA}$ is also used as a predictor by the rigid-block models.
 
@@ -244,11 +244,11 @@ The required periods are: $T_1 = 0$ (PGA) for the rigid-block models and the non
 
 ### Correlated standard normals via a Gaussian copula with full B&J 2008 matrix
 
-The framework samples $N_S$ realisations of a standard-normal vector $\boldsymbol{u}_s = (u_{s,1}, \ldots, u_{s,J})^\top$, where the periods $\{T_1, \ldots, T_J\}$ are PGA (anchored at $T_1 = 0.01$ s, the lower limit of validity of the correlation model) plus the model-specific multiplier periods $\alpha_i\,T_s$ required by the flexible-block models. The correlation matrix $\boldsymbol{C}$ is the **full** Baker and Jayaram [-@BakerJayaram2008] inter-period matrix, with every off-diagonal entry given by the canonical formula:
+The framework samples $N_S$ realisations of a correlated standard-normal vector $\boldsymbol{u}^{(n)} = (u^{(1,n)}, \ldots, u^{(J,n)})^\top$, where the periods $\{T^{(1)}, \ldots, T^{(J)}\}$ are PGA (anchored at $T^{(1)} = 0.01$ s, the lower limit of validity of the correlation model) plus the model-specific multiplier periods $\alpha_i\,T_s$ required by the flexible-block models. The correlation matrix $\boldsymbol{C}$ is the **full** Baker and Jayaram [-@BakerJayaram2008] inter-period matrix, with every off-diagonal entry given by the canonical formula:
 
 $$
-C_{jk} = \rho_\text{BJ}(T_j,\,T_k)
-\qquad \text{for all } j, k = 1, \ldots, J.
+C^{(j,m)} = \rho_\text{BJ}(T^{(j)},\,T^{(m)})
+\qquad \text{for all } j, m = 1, \ldots, J.
 $$
 
 The full matrix preserves the high inter-period correlations that the canonical model predicts among non-PGA pairs. For typical flexible-block sliding-mass periods $T_s$, the conditional correlation between $S_a(1.3\,T_s)$ and $S_a(1.5\,T_s)$ given PGA is $\approx 0.94$ — a single ground-motion record that produces $S_a(1.5\,T_s)$ at the 80th percentile of its hazard distribution will produce $S_a(1.3\,T_s)$ at a comparable percentile, not at the 20th. Setting these inter-period entries to zero (a star/hub simplification) would generate physically inconsistent realisations in which $S_a(1.3\,T_s)$ and $S_a(1.5\,T_s)$ wander independently across percentile rank, which does not occur in real records. The full-matrix specification is therefore required.
@@ -292,19 +292,19 @@ The full matrix is positive semi-definite by construction of the B&J 2008 fit; p
 Each component of $\boldsymbol{u}_s$ is mapped through the standard-normal CDF and then through the period-specific quantile function:
 
 $$
-\ln S_a(T_j)_s
+\ln S_a^{(n)}(T^{(j)})
 \;=\;
-Q_{T_j}\!\bigl(\,\Phi(u_{s,j})\,\bigr),
+Q^{(j)}\!\bigl(\,\Phi(u^{(j,n)})\,\bigr),
 \qquad j = 1, \ldots, J,
 $$
 
-with $S_a(T_1)_s = \mathrm{PGA}_s$. The resulting tuple $\bigl(\mathrm{PGA}_s,\;S_a(\alpha_i T_s)_s,\;\ldots\bigr)$ is one realisation of the rock-level intensity measures at the chosen $T_R$, drawn from a distribution whose marginals match the empirical PSHA fractiles and whose inter-period dependence respects the correlation matrix above. Each marginal sample is re-centred so its empirical mean equals the tabulated PSHA mean exactly; this corrects sampling bias when $N_S$ is small. $\mathrm{AI}_s$ and $\mathrm{PGV}_s$ are computed from $\mathrm{PGA}_s$ via the fallback in §3 when not externally supplied.
+with $S_a^{(n)}(T^{(1)}) = \mathrm{PGA}^{(n)}$. The resulting tuple $\bigl(\mathrm{PGA}^{(n)},\;S_a^{(n)}(\alpha_i T_s),\;\ldots\bigr)$ is one realisation of the rock-level intensity measures at the chosen $T_R$, drawn from a distribution whose marginals match the empirical PSHA fractiles and whose inter-period dependence respects the correlation matrix above. Each marginal sample is re-centred so its empirical mean equals the tabulated PSHA mean exactly; this corrects sampling bias when $N_S$ is small. $\mathrm{AI}^{(n)}$ and $\mathrm{PGV}^{(n)}$ are computed from $\mathrm{PGA}^{(n)}$ via the fallback in §3 when not externally supplied.
 
 ---
 
 ## Site amplification
 
-The rock-level intensities $\bigl\{S_a(T_j, V_{S30,\text{ref}})_s\bigr\}$ are converted to surface intensities at the target site via a lognormal amplification factor $F$. The factor follows the ergodic site-amplification framework of Stewart and co-authors developed for Central and Eastern North America: the linear-plus-nonlinear-plus-reference-adjustment decomposition is from [@Stewart2020], and the nonlinear deamplification term is from [@Hashash2020]. The framework allows two reference rock conditions, $V_{S30,\text{ref}} \in \{760,\,3000\}$ m s$^{-1}$, with the $F_{760}$ adjustment activated when the PSHA hazard is reported at the 3000 m s$^{-1}$ hard-rock baseline.
+The rock-level intensities $\bigl\{S_a^{(n)}(T^{(j)}, V_{S30,\text{ref}})\bigr\}$ are converted to surface intensities at the target site via a lognormal amplification factor $F$. The factor follows the ergodic site-amplification framework of Stewart and co-authors developed for Central and Eastern North America: the linear-plus-nonlinear-plus-reference-adjustment decomposition is from [@Stewart2020], and the nonlinear deamplification term is from [@Hashash2020]. The framework allows two reference rock conditions, $V_{S30,\text{ref}} \in \{760,\,3000\}$ m s$^{-1}$, with the $F_{760}$ adjustment activated when the PSHA hazard is reported at the 3000 m s$^{-1}$ hard-rock baseline.
 
 The mean log-amplification decomposes additively:
 
@@ -337,20 +337,20 @@ where $\sigma_L$ is the linear-term dispersion, $\sigma_I$ is the inter-referenc
 For each Monte Carlo realisation $s$ produced by §5, an independent amplification residual is drawn at each required period:
 
 $$
-\ln F(T_j)_s
+\ln F^{(n)}(T^{(j)})
 \;\sim\;
 \mathcal{N}\!\Bigl(\,
-\mu_{\ln F}(T_j, V_{S30}, \mathrm{PGA}^{*}_s),\;
-\sigma_{\ln F}^{2}(T_j, V_{S30}, \mathrm{PGA}^{*}_s)
+\mu_{\ln F}(T^{(j)}, V_{S30}, \mathrm{PGA}^{*(n)}),\;
+\sigma_{\ln F}^{2}(T^{(j)}, V_{S30}, \mathrm{PGA}^{*(n)})
 \,\Bigr),
 $$
 
 and the surface-level intensity follows multiplicatively:
 
 $$
-S_a(T_j, V_{S30})_s
+S_a^{(n)}(T^{(j)}, V_{S30})
 \;=\;
-F(T_j)_s \cdot S_a(T_j, V_{S30,\text{ref}})_s.
+F^{(n)}(T^{(j)}) \cdot S_a^{(n)}(T^{(j)}, V_{S30,\text{ref}}).
 $$
 
 Three notes on the amplification residual draw: amplification residuals are drawn independently across periods (the correlation structure on the amplification side is not modelled; this is consistent with site-response-analysis practice but is a load-bearing simplification documented in §10, H4a); amplification residuals are drawn independently of the rock-level draws, on the assumption that record-to-record variability of the amplification factor is dominated by site-specific propagation effects rather than by source-specific record characteristics; and the nonlinear term $F_{nl}$ is conditioned on the realisation's $\mathrm{PGA}^{*}_s$, so that the input strain level and the amplification factor are mutually consistent within the realisation.
@@ -383,24 +383,24 @@ shallow translational portion with a deeper deformable portion, or a slope whose
 For each Monte Carlo realisation $s$, a single standard-normal aleatory residual is drawn:
 
 $$
-z_s \;\sim\; \mathcal{N}(0,1),
+z^{(n)} \;\sim\; \mathcal{N}(0,1),
 $$
 
-and applied across all six models, scaled by each model's own dispersion. For each model $i$ and each candidate yield acceleration $k_y$ on the evaluation grid (§8.3), the per-model per-realisation displacement is
+and applied across all six models, scaled by each model's own dispersion. For each model $(i)$ and each candidate yield acceleration $k_y$ on the evaluation grid (§8.3), the per-model per-realisation displacement is
 
 $$
-D_{i,s}(k_y)
+d_N^{(i,n)}(k_y)
 \;=\;
 \exp\!\Bigl[\,
-\mu_{\ln D,\,i}\!\bigl(k_y, \boldsymbol{\mathrm{IM}}_s\bigr)
+\mu_{\ln D_N}^{(i)}\!\bigl(k_y, \mathbf{I}^{(n)}\bigr)
 \;+\;
-\sigma_{\ln D,\,i}\,z_s
+\sigma_{\ln D_N}^{(i)}\,z^{(n)}
 \,\Bigr],
 $$
 
-where $\boldsymbol{\mathrm{IM}}_s$ collects the surface intensities $(\mathrm{PGA}_s,\;S_a(\alpha T_s)_s,\;\ldots)$ produced by §§5–6. For SR08, the dispersion term is $\sigma_{\ln D,\,i}(r_s)\,z_s$ with $r_s = k_y/\mathrm{PGA}_s$, since SR08's dispersion is amplitude-dependent.
+where $\mathbf{I}^{(n)}$ collects the surface intensities $(\mathrm{PGA}^{(n)},\;S_a^{(n)}(\alpha T_s),\;\ldots)$ produced by §§5–6. For SR08, the dispersion term is $\sigma_{\ln D_N}^{(i)}(r^{(n)})\,z^{(n)}$ with $r^{(n)} = k_y/\mathrm{PGA}^{(n)}$, since SR08's dispersion is amplitude-dependent.
 
-The use of a single shared $z_s$ across all six models corresponds to assuming perfect cross-model residual correlation, $\rho = 1$. This is the strongest assumption in the spectrum of cross-model residual dependence and is appropriate when the six retained regressions share most of their predictor structure and the unexplained component reflects mainly record-to-record variability that is common to all of them. The opposite extreme — independent residuals per model ($\rho = 0$) — underestimates the joint variability of the ensemble. Empirically calibrated cross-model residual correlations for displacement-prediction equations are not standard in the published literature; the multi-GMPE PSHA literature on intensity-measure residuals [@BakerBradley2017] reports cross-model correlations in the range $\rho \in [0.5, 0.9]$ for ground-motion residuals, and analogous values for displacement residuals are an open question. The shared-$z_s$ scheme is documented as H4b in §10 and identified as
+The use of a single shared $z^{(n)}$ across all six models corresponds to assuming perfect cross-model residual correlation, $\rho = 1$. This is the strongest assumption in the spectrum of cross-model residual dependence and is appropriate when the six retained regressions share most of their predictor structure and the unexplained component reflects mainly record-to-record variability that is common to all of them. The opposite extreme — independent residuals per model ($\rho = 0$) — underestimates the joint variability of the ensemble. Empirically calibrated cross-model residual correlations for displacement-prediction equations are not standard in the published literature; the multi-GMPE PSHA literature on intensity-measure residuals [@BakerBradley2017] reports cross-model correlations in the range $\rho \in [0.5, 0.9]$ for ground-motion residuals, and analogous values for displacement residuals are an open question. The shared-$z^{(n)}$ scheme is documented as H4b in §10 and identified as
 a working assumption open to refinement.
 
 ### Weighted curve per realisation
@@ -408,12 +408,12 @@ a working assumption open to refinement.
 For each $k_y$, the weighted mean displacement at realisation $s$ is the logic-tree-weighted average of per-model values in linear $D$-space:
 
 $$
-D_{\text{ens},s}(k_y)
+d_{\text{ens}}^{(n)}(k_y)
 \;=\;
-\sum_{i=1}^{6}\, w_i \, D_{i,s}(k_y).
+\sum_{(i)}\, w^{(i)} \, d_N^{(i,n)}(k_y).
 $$
 
-The aggregation is taken in linear $D$-space rather than in $\ln D$-space; the linear-space mean is the standard mean of the predicted displacement under each model's predictive distribution and is consistent with the reporting of mean displacement in the source papers. The $\ln$-space mean (geometric mean of per-model displacements) is computed alongside as a diagnostic when sensitivity to the mixing space is of interest. The collection $\bigl\{D_{i,s}(k_y)\bigr\}_{i,s,k_y}$ is the primary output of the simulation; downstream statistics are derived from it.
+The aggregation is taken in linear $D$-space rather than in $\ln D$-space; the linear-space mean is the standard mean of the predicted displacement under each model's predictive distribution and is consistent with the reporting of mean displacement in the source papers. The $\ln$-space mean (geometric mean of per-model displacements) is computed alongside as a diagnostic when sensitivity to the mixing space is of interest. The collection $\bigl\{d_N^{(i,n)}(k_y)\bigr\}_{(i),n,k_y}$ is the primary output of the simulation; downstream statistics are derived from it.
 
 ---
 
@@ -421,21 +421,21 @@ The aggregation is taken in linear $D$-space rather than in $\ln D$-space; the l
 
 ### Monotonicity requirement
 
-Physical consistency requires the per-realisation displacement curve to be non-increasing in $k_y$: a slope with a higher yield acceleration cannot accumulate more displacement under the same scenario. The empirical regressions of §4 do not enforce this constraint strictly; near the boundaries of their calibration windows, sampling noise on $z_s$ combined with non-monotonic functional forms (the fourth-order polynomial of SR08 is the prominent example) can produce per-realisation curves with small non-monotonic excursions. Such excursions are artefacts of the regression and corrupt the inversion if not removed.
+Physical consistency requires the per-realisation displacement curve to be non-increasing in $k_y$: a slope with a higher yield acceleration cannot accumulate more displacement under the same scenario. The empirical regressions of §4 do not enforce this constraint strictly; near the boundaries of their calibration windows, sampling noise on $z^{(n)}$ combined with non-monotonic functional forms (the fourth-order polynomial of SR08 is the prominent example) can produce per-realisation curves with small non-monotonic excursions. Such excursions are artefacts of the regression and corrupt the inversion if not removed.
 
 ### Right-cumulative projection
 
 Before inversion, each per-model per-realisation curve is replaced by its right-sided cumulative maximum on the $k_y$ evaluation grid:
 
 $$
-\tilde{D}_{i,s}(k_{y,k})
+\tilde{d}_N^{(i,n,k)}
 \;=\;
-\max_{j \,\geq\, k}\;
-D_{i,s}(k_{y,j}),
+\max_{m \,\geq\, k}\;
+d_N^{(i,n,m)},
 \qquad k = 1, \ldots, N_k,
 $$
 
-where $k_{y,1} < k_{y,2} < \cdots < k_{y,N_k}$ is the grid in ascending order. The projection guarantees a non-increasing sequence in $k_y$ by construction, leaves the rightmost (largest-$k_y$) value unchanged, and never reduces a displacement value, replacing low-side anomalies with the larger of the original value and any value at higher $k_y$. Operationally it is the discrete right-cumulative max on the array of $D_{i,s}$ values, computed in a single right-to-left pass.
+where $k_{y,1} < k_{y,2} < \cdots < k_{y,N_k}$ is the grid in ascending order. The projection guarantees a non-increasing sequence in $k_y$ by construction, leaves the rightmost (largest-$k_y$) value unchanged, and never reduces a displacement value, replacing low-side anomalies with the larger of the original value and any value at higher $k_y$. Operationally it is the discrete right-cumulative max on the array of $d_N^{(i,n)}$ values, computed in a single right-to-left pass.
 
 Alternative monotone projections include isotonic regression via the Pool-Adjacent-Violators algorithm and monotone-constrained cubic-spline interpolation. The right-cumulative-max choice is more conservative than isotonic regression at the low-$k_y$ end (it never reduces a displacement value), at the cost of a small upward bias relative to the unprojected regression curve.
 
@@ -453,35 +453,28 @@ with $k_{y,\min} = 0.01$ g determined by the BM17 and BM19 calibration windows, 
 
 ### Inversion at the target displacement
 
-For each per-realisation per-model monotone curve $\tilde{D}_{i,s}$, the yield coefficient that limits displacement to the target $D_a$ is obtained by inversion in log-log space:
+For each per-realisation per-model monotone curve $\tilde{d}_N^{(i,n,\cdot)}$, the yield coefficient that limits displacement to the target $d^*$ is obtained by piecewise log-log linear interpolation. Let $k^*$ be the grid index such that $\tilde{d}_N^{(i,n,k^*)} \geq d^* > \tilde{d}_N^{(i,n,k^*+1)}$; then:
 
 $$
-k_{\text{max},\,i,s}(D_a)
-\;=\;
-\tilde{D}_{i,s}^{-1}(D_a)
-\;=\;
-\exp\!\Bigl[\,
-\operatorname{interp}_{\ln-\ln}\!\bigl(
-\ln D_a;\;
-\ln \tilde{D}_{i,s},\;
-\ln k_y
-\bigr)
-\,\Bigr].
+k_\text{max}^{(i,n)}(d^*)
+= k_y^{(k^*)} \left(\frac{d^*}{\tilde{d}_N^{(i,n,k^*)}}\right)^{\!\beta^{(k^*)}},
+\qquad
+\beta^{(k^*)} = \frac{\ln k_y^{(k^*+1)} - \ln k_y^{(k^*)}}{\ln \tilde{d}_N^{(i,n,k^*+1)} - \ln \tilde{d}_N^{(i,n,k^*)}}.
 $$
 
-The interpolation is log-log linear on the evaluation grid. For $D_a$ outside the grid support $\bigl[\tilde{D}_{i,s}(k_{y,N_k}),\;\tilde{D}_{i,s}(k_{y,1})\bigr]$, linear extrapolation in log-log space at the nearest boundary point is used. The lower-boundary extrapolation is well-behaved for AM88 and JB07, which are asymptotically log-log linear in $r \to 0$; the upper-boundary extrapolation overestimates AM88 at large $k_y$, where the regression decays faster than log-linear because of the $(1-r)^{2.53}$ factor going to zero as $r \to 1$. The AM88 contribution to $k_{\text{max},s}(D_a)$ at very small $D_a$ is therefore a conservative bound rather than a regression-faithful estimate. Per-model calibration ranges are reported separately for diagnostic use when extrapolation is detected.
+The interpolation is log-log linear on the evaluation grid. For $d^*$ outside the grid support $\bigl[\tilde{d}_N^{(i,n,N_k)},\;\tilde{d}_N^{(i,n,1)}\bigr]$, linear extrapolation in log-log space at the nearest boundary point is used. The lower-boundary extrapolation is well-behaved for AM88 and JB07, which are asymptotically log-log linear in $r \to 0$; the upper-boundary extrapolation overestimates AM88 at large $k_y$, where the regression decays faster than log-linear because of the $(1-r)^{2.53}$ factor going to zero as $r \to 1$. The AM88 contribution to $k_\text{max}^{(n)}(d^*)$ at very small $d^*$ is therefore a conservative bound rather than a regression-faithful estimate. Per-model calibration ranges are reported separately for diagnostic use when extrapolation is detected.
 
 ### Weighted per-realisation yield coefficient
 
 The per-realisation yield coefficient is the logic-tree-weighted mean of the per-model inversions in linear $k_y$-space:
 
 $$
-k_{\text{max},\,s}(D_a)
+k_\text{max}^{(n)}(d^*)
 \;=\;
-\sum_{i=1}^{6}\, w_i \, k_{\text{max},\,i,s}(D_a).
+\sum_{(i)}\, w^{(i)} \, k_\text{max}^{(i,n)}(d^*).
 $$
 
-The mean is taken in linear $k_y$-space; the $\ln k_y$-space alternative (geometric mean of per-model inversions) is computed as a diagnostic. Because the mean is taken over inverses of monotone curves with distinct dispersions, $k_{\text{max},\,s}(D_a)$ is not in general equal to the inverse of $D_{\text{ens},s}(k_y)$ at $D_a$; the two operations do not commute. The weighted mean of inversions is reported on the grounds that the inversion is the natural per-model operation, with each model contributing under its own logic-tree weight.
+The mean is taken in linear $k_y$-space; the $\ln k_y$-space alternative (geometric mean of per-model inversions) is computed as a diagnostic. Because the mean is taken over inverses of monotone curves with distinct dispersions, $k_\text{max}^{(n)}(d^*)$ is not in general equal to the inverse of $d_\text{ens}^{(n)}(k_y)$ at $d^*$; the two operations do not commute. The weighted mean of inversions is reported on the grounds that the inversion is the natural per-model operation, with each model contributing under its own logic-tree weight.
 
 ---
 
@@ -489,21 +482,21 @@ The mean is taken in linear $k_y$-space; the $\ln k_y$-space alternative (geomet
 
 ### Empirical distribution of the design value
 
-Across the $N_S$ Monte Carlo realisations, the design yield coefficient at the target $D_a$ is summarised by its mean and selected empirical quantiles:
+Across the $N_S$ Monte Carlo realisations, the design yield coefficient at the target $d^*$ is summarised by its mean and selected empirical quantiles:
 
 $$
-\bar{k}_\text{max}(D_a)
+\bar{k}_\text{max}(d^*)
 \;=\;
-\frac{1}{N_S}\sum_{s=1}^{N_S} k_{\text{max},\,s}(D_a),
+\frac{1}{N_S}\sum_{n=1}^{N_S} k_\text{max}^{(n)}(d^*),
 \qquad
-k_\text{max}^{(p)}(D_a)
+k_\text{max}^{(p)}(d^*)
 \;=\;
-Q_p\!\bigl[\,k_{\text{max},\,s}(D_a)\,\bigr]_{s=1}^{N_S},
+Q_p\!\bigl[\,k_\text{max}^{(n)}(d^*)\,\bigr]_{n=1}^{N_S},
 $$
 
 with $p \in \{0.16,\,0.50,\,0.84\}$ as the operational default. Additional quantiles ($p \in \{0.05, 0.95\}$) are computed when extreme-tail reporting is required.
 
-The reported uncertainty band $\bigl[\,k_\text{max}^{(0.16)},\,k_\text{max}^{(0.84)}\bigr]$ combines aleatory uncertainty across the three contributions: (i) hazard variability — the spread of $\boldsymbol{\mathrm{IM}}_s$ governed by the width of the PSHA-derived UHS quantiles and the inter-period correlation; (ii) site-amplification variability — the lognormal residual of the amplification factor; (iii) Newmark-model aleatory variability — the residual $z_s$ scaled by each model's $\sigma_{\ln D,\,i}$ and attenuated by the local slope $\partial \ln D / \partial \ln k_y$. The band also reflects a within-realisation model-mixing component, conditional on the chosen weight vector $w_i$. Epistemic uncertainty over the weight vector itself is not propagated into the band; sensitivity to $w_i$ is reported as a separate diagnostic via re-running the simulation under alternative weight vectors. The reported uncertainty band is probabilistic over seismic demand and site amplification;
+The reported uncertainty band $\bigl[\,k_\text{max}^{(0.16)},\,k_\text{max}^{(0.84)}\bigr]$ combines aleatory uncertainty across the three contributions: (i) hazard variability — the spread of $\mathbf{I}^{(n)}$ governed by the width of the PSHA-derived UHS quantiles and the inter-period correlation; (ii) site-amplification variability — the lognormal residual of the amplification factor; (iii) Newmark-model aleatory variability — the residual $z^{(n)}$ scaled by each model's $\sigma_{\ln D_N}^{(i)}$ and attenuated by the local slope $\partial \ln D / \partial \ln k_y$. The band also reflects a within-realisation model-mixing component, conditional on the chosen weight vector $w^{(i)}$. Epistemic uncertainty over the weight vector itself is not propagated into the band; sensitivity to $w_i$ is reported as a separate diagnostic via re-running the simulation under alternative weight vectors. The reported uncertainty band is probabilistic over seismic demand and site amplification;
 geotechnical resistance uncertainty (in $k_y$) is not propagated and is the subject of a separate analysis (see §10, H6).
 
 ### Normalised seismic coefficient
@@ -511,21 +504,21 @@ geotechnical resistance uncertainty (in $k_y$) is not propagated and is the subj
 The performance-based pseudo-static seismic coefficient is the ratio of the design $k_\text{max}$ to the mean rock-level peak ground acceleration at the chosen return period:
 
 $$
-K_h(D_a)
+K_h(d^*)
 \;=\;
-\frac{k_\text{max}(D_a)}{\overline{\mathrm{PGA}}_\text{rock}}\,\times\,100\%.
+\frac{k_\text{max}(d^*)}{\overline{\mathrm{PGA}}_\text{rock}}\,\times\,100\%.
 $$
 
 The denominator is the mean rock-level PGA, an unambiguous PSHA output that does not require a separate site-amplification step. Standards-based recommendations such as NCHRP 611 [@AndersonEtAl2008] normalise to the site-level PGA, $\overline{\mathrm{PGA}}_\text{site} = F_\text{PGA}\,\overline{\mathrm{PGA}}_\text{rock}$, where $F_\text{PGA}$ is the site amplification factor at PGA. The two normalisations differ by the factor $F_\text{PGA}$, which can range from approximately 1.0 to 1.6 in the linear regime (depending on $V_{S30}$) and approximately 0.6 to 1.0 in the nonlinear regime at high input PGA. Direct comparison with site-PGA-normalised code recommendations therefore requires the multiplicative correction by $F_\text{PGA}$.
 
-The framework reports both the absolute $\bar{k}_\text{max}(D_a)$ in $g$ and the normalised $K_h(D_a)$ as a percentage; the two forms are equivalent representations of the same design value.
+The framework reports both the absolute $\bar{k}_\text{max}(d^*)$ in $g$ and the normalised $K_h(d^*)$ as a percentage; the two forms are equivalent representations of the same design value.
 
 ### Tabulation across return periods
 
 Repeating the procedure of §§4–9 across a set of return periods $T_R$ produces a tabulated map
 
 $$
-T_R \;\longmapsto\; \bar{k}_\text{max}(D_a, T_R) \;\;(\text{or equivalently }K_h(D_a, T_R)),
+T_R \;\longmapsto\; \bar{k}_\text{max}(d^*, T_R) \;\;(\text{or equivalently }K_h(d^*, T_R)),
 $$
 
 over the range relevant to facility consequence classification: from AEP $1/100$ for routine operational loading, through AEP $1/475$ to $1/2475$ for moderate-consequence design earthquakes, to AEP $1/10\,000$ for the safety-evaluation earthquake of high-consequence facilities. The full map is the deliverable of the framework; its row at the post-closure design AEP is the input to limit-equilibrium pseudo-static slope-stability calculations.
@@ -540,17 +533,17 @@ The framework rests on the following modelling hypotheses, each invoked at one o
 
 **H2 — PSHA output is first-moment-plus-quantiles.** No closed-form joint distribution of intensity measures across periods is assumed; only the mean and a discrete set of empirical fractiles per period are exploited, via the monotone piecewise quantile function (§5.1). This matches the form in which contemporary PSHA computations deliver hazard output.
 
-**H3 — No closed form for conditional means.** The conditional means $\mu_{\ln F}$ (site amplification) and $\mu_{\ln D,\,i}$ (Newmark displacement) have no analytical closed form across the full predictor space; they are evaluated by Monte Carlo realisations (§§6–7). This is a property of the underlying empirical models, not a methodological choice.
+**H3 — No closed form for conditional means.** The conditional means $\mu_{\ln F}$ (site amplification) and $\mu_{\ln D_N}^{(i)}$ (Newmark displacement) have no analytical closed form across the full predictor space; they are evaluated by Monte Carlo realisations (§§6–7). This is a property of the underlying empirical models, not a methodological choice.
 
-**H4a — Site-amplification residual independence.** The site-amplification residual $\ln F(T_j)_s$ is drawn independently across periods and independently of the rock-level draws of §5. The independence between site-amplification draws and rock-level draws rests on the assumption that record-to-record variability of the amplification factor is dominated by site-specific propagation effects rather than by source-specific record characteristics. The cross-period independence among amplification residuals is a simplification whose impact on the displacement output is small relative to the rock-level inter-period correlation but is documented as a load-bearing assumption.
+**H4a — Site-amplification residual independence.** The site-amplification residual $\ln F^{(n)}(T^{(j)})$ is drawn independently across periods and independently of the rock-level draws of §5. The independence between site-amplification draws and rock-level draws rests on the assumption that record-to-record variability of the amplification factor is dominated by site-specific propagation effects rather than by source-specific record characteristics. The cross-period independence among amplification residuals is a simplification whose impact on the displacement output is small relative to the rock-level inter-period correlation but is documented as a load-bearing assumption.
 
-**H4b — Cross-model displacement residual at $\rho = 1$.** The displacement residual $z_s$ is a single standard normal shared across all six models per realisation, which corresponds to perfect cross-model residual correlation. This is the strongest assumption in the spectrum of cross-model residual dependence and is appropriate when the six retained regressions share most of their predictor structure. Empirically calibrated cross-model correlations $\rho \in (0, 1)$ are an open refinement direction.
+**H4b — Cross-model displacement residual at $\rho = 1$.** The displacement residual $z^{(n)}$ is a single standard normal shared across all six models per realisation, which corresponds to perfect cross-model residual correlation. This is the strongest assumption in the spectrum of cross-model residual dependence and is appropriate when the six retained regressions share most of their predictor structure. Empirically calibrated cross-model correlations $\rho \in (0, 1)$ are an open refinement direction.
 
-**H5 — Logarithmic dispersions are constant in the design quantities.** The dispersions $\sigma_{\ln F}(T, V_{S30}, \mathrm{PGA}^*)$ and $\sigma_{\ln D,\,i}$ are taken as constant in the design quantities ($k_y$ and $D_a$), while still depending on the predictor values within each realisation: $\sigma_{\ln F}$ depends on $V_{S30}$, $T$, and $\mathrm{PGA}^*_s$ via the published site-amplification tables; SR08's $\sigma_{\ln D}$ depends on $r_s$ via the published amplitude-dependent formula. The other displacement-model dispersions are reported as constants in their source papers.
+**H5 — Logarithmic dispersions are constant in the design quantities.** The dispersions $\sigma_{\ln F}(T, V_{S30}, \mathrm{PGA}^*)$ and $\sigma_{\ln D_N}^{(i)}$ are taken as constant in the design quantities ($k_y$ and $d^*$), while still depending on the predictor values within each realisation: $\sigma_{\ln F}$ depends on $V_{S30}$, $T$, and $\mathrm{PGA}^*_s$ via the published site-amplification tables; SR08's $\sigma_{\ln D}$ depends on $r_s$ via the published amplitude-dependent formula. The other displacement-model dispersions are reported as constants in their source papers.
 
 **H6 — Yield acceleration is deterministic.** The yield coefficient $k_y$ of the slope is treated as a deterministic property of the failure surface, established by static slope stability analysis with shear strengths assigned per the geotechnical investigation. Uncertainty in $k_y$ — from material variability, residual-strength selection, or pore-pressure assumptions — is not modelled within the framework. The reported design value is therefore probabilistic over seismic demand and site amplification; geotechnical resistance uncertainty is the subject of a separate analysis.
 
-**H7 — Continuous lognormal displacement.** The framework treats the predicted Newmark displacement as a continuous lognormal variable and bypasses the zero-displacement probability term that the BT07 original formulation provides ($P[D \leq 1\,\text{cm}]$). For design $D_a$ values of engineering interest (typically $\geq 1$ cm), the simplification has negligible numerical effect; the small-$D_a$ regime is conservatively handled by the lognormal continuous model.
+**H7 — Continuous lognormal displacement.** The framework treats the predicted Newmark displacement as a continuous lognormal variable and bypasses the zero-displacement probability term that the BT07 original formulation provides ($P[D \leq 1\,\text{cm}]$). For design $d^*$ values of engineering interest (typically $\geq 1$ cm), the simplification has negligible numerical effect; the small-$d^*$ regime is conservatively handled by the lognormal continuous model.
 
 ---
 
@@ -559,3 +552,37 @@ The framework rests on the following modelling hypotheses, each invoked at one o
 - **Logic-tree weights $w_i$**: no default vector is committed in this draft. Each application reports the chosen weight vector and justifies it.
 - **Default $N_S$ and $N_k$**: routine practice is $N_S \in [10^3, 10^4]$ and $N_k = 30$; convergence diagnostics (band-width stability under $N_S \times 2$) accompany each case-study report.
 - **Out of scope for this draft**: abstract, case study, discussion, conclusion, and a publication-ready bibliography.
+
+---
+
+## Addendum — Estimation of $T_s$ 
+
+> **Note for the next agent.** The block below is verbatim content from `~/github/tools/psha/scaffold/_chapters/periods.qmd`, added here on 2026-05-06 at the user's request so that the methodological step for estimating $T_s$ is available alongside the rest of AVK. It has **not** been integrated into the canonical sections of this paper. It belongs methodologically near the discussion of flexible-block models / inputs to the displacement framework. Integrate, condense as appropriate for an expert audience (many of these equations are well-known and may go inline), and remove this addendum block once placed.
+
+Estimation of the fundamental period of a flexible sliding mass is a prerequisite for applying the flexible-block displacement models, all of which evaluate spectral acceleration at a period proportional to $T_n$. The base stiffness parameters required for this estimation - the maximum shear modulus $G_o$ and the shear-wave velocity $v_S^o$ at the embankment base - are established using the Ishihara stiffness model described in the following subsection.
+
+For an embankment or earth fill whose shear stiffness increases with depth according to a power-law profile $G(z) \approx G_o(z/H_{\max})^{m_o}$, the $j$th modal period $T_s^{(j)}$ is:
+
+$$T_s^{(j)} \simeq \frac{4\,\pi\,H_{\max}}{a^{(j)}\,(2 - m_o)\,v_S^{o}}$$
+
+In this expression, $H_{\max}$ is the maximum height of the embankment; $a^{(j)}$ is the $j$th eigenvalue of the characteristic equation governing the laterally constrained embankment under harmonic base excitation, which depends on the homogeneity ratio $m_o$ and the truncation ratio $\lambda_o$; and $v_S^{o} = \sqrt{G_o/\rho}$ is the shear-wave velocity at the base, where $G_o$ is the maximum shear modulus at depth $z = H_{\max}$ and $\rho$ is the mass density of the material. For practical evaluation of slope performance, the fundamental mode ($j = 1$) dominates, and the expression reduces to a function of the base shear-wave velocity, the maximum height, and two dimensionless geometric ratios.
+
+The truncation ratio $\lambda_o$ captures the geometric influence of the berm width $B_o$ on the dynamic response of the embankment:
+
+$$\lambda_o = \frac{B_o}{B_{\max}} = \frac{B_o}{2\,H_{\max}\,s + B_o}$$
+
+where $B_{\max} = 2\,H_{\max}\,s + B_o$ is the base width and $s$ is the reciprocal of the average slope gradient ($\tan\beta = 1/s$). The fundamental period increases with the truncation ratio $\lambda_o$ for a given height $H_{\max}$, reflecting the increasing influence of the berm width on the overall dynamic stiffness of the embankment.
+
+The homogeneity ratio $m_o$ reflects the power-law variation of the shear modulus with depth. A larger value of $m_o$ implies a steeper stiffness gradient from surface to base, which lengthens the fundamental period relative to the uniform-stiffness case because a greater fraction of the mass is supported by softer material near the surface. The eigenvalue $a^{(1)}$ is determined by solving the characteristic equation of the laterally constrained embankment, and its value depends jointly on $m_o$ and $\lambda_o$. In practice, the Ishihara [-@Ishihara1997] model is evaluated at multiple depths to construct a full $G(z)$ profile, which is then fitted to the power-law form to extract $G_o$, $v_S^o$, and $m_o$ for the relevant slope geometry and material.
+
+The estimation of maximum base stiffness is required for flexible-block Newmark analysis, because the shear-wave velocity at the base of the embankment - and thereby the fundamental period $T_n$ - depends on the small-strain shear modulus $G_o$. The shear modulus at arbitrary depth $z$ is estimated as a function of void ratio $e_o$ and octahedral effective stress $\sigma'_o(z)$ using the Ishihara formulation [@Ishihara1997]:
+
+$$G(z,\,e_o) \approx A\,\frac{(C_e - 1)^2}{1 + e_o}\,\left(\frac{\sigma'_o(z)}{p_{\mathrm{ref}}}\right)^n$$
+
+In this expression, $A$ is a dimensionless material-dependent amplitude constant; $C_e$ is a void-ratio shape parameter controlling the sensitivity of $G$ to void ratio; $e_o$ is the in-situ void ratio of the material; $p_{\mathrm{ref}}$ is a reference pressure (typically atmospheric, 101.3 kPa); $n$ is the stress exponent governing the power-law dependence of stiffness on confining pressure; and $\sigma'_o(z)$ is the octahedral effective stress at depth $z$. The model parameters $A$, $C_e$, and $n$ are determined from laboratory tests on undisturbed or remolded samples of the fill or native material - typically resonant column or bender element tests - and Ishihara [-@Ishihara1997] provides tabulated values for a range of soil types classified by USCS designation together with the corresponding void ratio ranges for which the correlations were calibrated.
+
+The maximum (small-strain) shear modulus $G_o$ corresponds to the evaluation at the base of the embankment, at depth $z = H_{\max}$, where the octahedral stress reaches its maximum value under the self-weight of the fill. Once $G_o$ is established, the base shear-wave velocity follows directly:
+
+$$v_S^{o} = \sqrt{\frac{G_o}{\rho}}$$
+
+where $\rho$ is the bulk mass density of the material at the base. The complete stiffness profile $G(z)$ over the full height of the embankment follows from the power-law expression with the estimated parameters, and the homogeneity ratio $m_o$ is determined by fitting the predicted profile $G(z)/G_o = (z/H_{\max})^{m_o}$ to the measured or inferred stiffness data. In the context of TSF and WRD design, the relevant material types span the full range of materials - from coarse-grained rockfill and sandy tailings to fine-grained slime tailings - and the estimation is performed separately for each material zone contributing to the critical failure surface.
