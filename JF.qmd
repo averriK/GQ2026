@@ -12,21 +12,39 @@ execute:
   message: false
 ---
 
+```{r}
+#| include: false
+library(here)
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+TR_TARGET   <- 10000
+IDg_TARGET  <- "S30"
+IDm_TARGET  <- "U2"
+ID_TARGET   <- "NBCC.max"
+VS30_TARGET <- 560
+DA_TARGET   <- c(0.5, 2.5, 5)
+p_TARGET    <- "mean"
+PSA_Units   <- "g"
+
+source(file.path(root, "scripts", "example", "kmax.R"))
+```
+
 ## ABSTRACT
 
 This paper presents a performance-based seismic design framework for the preliminary dynamic stability assessment of embankments constructed on soft, sensitive foundations such as varved glaciolacustrine clay. Where regulations require reclaimed tailings impoundments to withstand the Maximum Credible Earthquake (MCE) without loss of containment, robust screening methods become essential—particularly when available geotechnical data are limited.
 
-The framework integrates targeted and comprehensive site and laboratory investigations, inputs from coupled limit equilibrium and finite element seepage stability analyses, and discuss importance of performing screening-level liquefaction assessments as part of the process. A core element is the calibration of seismic coefficients to specific performance criteria, especially restricting predicted permanent deformations to acceptable levels under design-level earthquakes.
+A core element of the framework is the probabilistic selection of the horizontal seismic coefficient $k_h$: hazard fractiles from a site-specific probabilistic seismic hazard analysis are propagated through a nonlinear site-amplification model and a logic-tree ensemble of empirical Newmark sliding-block models to yield quantile estimates of $k_{\max}$ at user-defined displacement thresholds.
 
-By explicitly accounting for uncertainties from site amplification and material property variability, the methodology produces mean values and error estimates for seismic design parameters. The proposed framework demonstrates that performance-based seismic design can be reliably applied in early project stages to support compliance and inform risk management for tailings impoundments, even in contexts with limited data.
+By explicitly accounting for uncertainty in the seismic hazard and in the site-amplification response, the methodology delivers mean and quantile estimates of the seismic coefficient. Applied to a `r SUMMARY$Hs` m embankment on glaciolacustrine foundation at $T_R = `r SUMMARY$trLabel`$ yr, the procedure yields $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) at a target displacement of `r SUMMARY$DaRows[[2]]$Da` cm.
 
 ## RESUME
 
 Cet article présente un cadre de conception sismique basé sur la performance pour l'évaluation préliminaire de la stabilité dynamique des digues construites sur des fondations molles et sensibles, telles que les argiles varvées glaciolacustres. Lorsque la réglementation exige que les parcs à résidus réhabilités résistent au séisme maximal crédible (SMC) sans perte de confinement, des méthodes de vérification robustes deviennent essentielles, en particulier lorsque les données géotechniques disponibles sont limitées.
 
-Le cadre intègre des investigations ciblées et complètes sur le site et en laboratoire, les résultats d'analyses de stabilité par équilibre limite et éléments finis couplées avec l'écoulement, et souligne l'importance de réaliser des analyses de liquéfaction de type dépistage (screening) dans le cadre du processus. Un élément central est l'étalonnage des coefficients sismiques en fonction de critères de performance spécifiques, notamment la limitation des déformations permanentes prédites à des niveaux acceptables sous les séismes de dimensionnement.
+Un élément central du cadre est la sélection probabiliste du coefficient sismique horizontal $k_h$ : les fractiles de l'aléa issus d'une analyse probabiliste de l'aléa sismique spécifique au site sont propagés à travers un modèle non linéaire d'amplification de site et un ensemble logique de modèles empiriques de déplacement de type Newmark, afin de produire des estimations quantiles de $k_{\max}$ pour des seuils de déplacement définis par l'utilisateur.
 
-En tenant explicitement compte des incertitudes liées à l'amplification de site et à la variabilité des propriétés des matériaux, la méthodologie fournit des valeurs moyennes ainsi que des estimations d'erreur pour les paramètres de conception sismique. Le cadre proposé démontre qu'une conception sismique basée sur la performance peut être appliquée de manière fiable aux premières étapes d'un projet pour soutenir la conformité réglementaire et éclairer la gestion des risques des parcs à résidus, même dans des contextes où les données sont limitées.
+En tenant explicitement compte des incertitudes dans l'aléa sismique et dans la réponse d'amplification de site, la méthodologie fournit des estimations moyennes et quantiles du coefficient sismique. Appliquée à une digue de `r SUMMARY$Hs` m sur fondation glaciolacustre pour $T_R = `r SUMMARY$trLabel`$ ans, la procédure donne $\bar{k}_{\max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ ($K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$) pour un déplacement cible de `r SUMMARY$DaRows[[2]]$Da` cm.
 
 ## INTRODUCTION
 
@@ -129,25 +147,7 @@ The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of
 
 ## Numerical application — Part 1: Seismic coefficient estimation
 
-```{r}
-#| include: false
-library(here)
-root <- normalizePath(here::here())
-source(file.path(root, "scripts", "setup", "setup.R"))
-
-TR_TARGET   <- 10000
-IDg_TARGET  <- "S30"
-IDm_TARGET  <- "U2"
-ID_TARGET   <- "NBCC.max"
-VS30_TARGET <- 560
-DA_TARGET   <- c(0.5,2.5, 5)
-p_TARGET    <- "mean"
-PSA_Units   <- "g"
-
-source(file.path(root, "scripts", "example", "kmax.R"))
-```
-
-The procedure of reference [-@Verri2026] is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the ST17 nonlinear site-amplification model [@SeyhanStewart2014] and a logic-tree ensemble of four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
+The procedure of @Verri2026 is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the ST17 nonlinear site-amplification model [@SeyhanStewart2014] and a logic-tree ensemble of four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
 
 The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s), placing the flexible-block reference periods at $1.5\,T_s = `r SUMMARY$T15Ts`$ s and $1.3\,T_s = `r SUMMARY$T13Ts`$ s.
 
@@ -212,8 +212,8 @@ The liquefaction screening assessment was conducted following the methodology of
 
 Acknowledging that the key seismic load parameters for a project typically change little once the controlling sources and design levels have been established, they should be defined as early as practicable in the engineering process. In parallel, clear, quantitative performance objectives (e.g., tolerable permanent displacements, no loss of containment) should also be set at the outset of any studies, assessment or trade-offs while looking to design for closure purpose. Having both the seismic demand and the performance objectives defined from the start greatly facilitates the implementation of a performance‑based approach for assessing TSF embankment long-term stability.
 
-The methodology applied in this study provides a rational framework in which the seismic performance of the TSF embankments is evaluated in terms of earthquake‑induced permanent displacements, rather than solely through prescriptive FoS. By linking a horizontal seismic coefficient directly to an allowable displacement threshold, the approach demonstrates that limited expenditure should be required for the embankment to comply with the applicable regulations and meet project‑specific performance criteria under the required design and safety‑evaluation earthquakes. In this case, the performance‑based assessment showed that the selected reclamation concept is technically robust.
+The methodology applied in this study provides a rational framework in which the seismic performance of the TSF embankments is evaluated in terms of earthquake‑induced permanent displacements, rather than solely through prescriptive FoS. By linking the horizontal seismic coefficient to a user-defined displacement threshold, the procedure delivers design values with explicit uncertainty bounds, providing a transparent basis for regulatory compliance under the design-level earthquake.
 
-More broadly, introducing performance‑based principles early in a project allows the seismic load definition to be established, while the characterization of material resistance is progressively refined through additional site investigation and testing. As the statistical description of resistance improves, the framework can naturally evolve toward a reliability‑based design, in which probabilities of exceeding specified performance limits are quantified explicitly, moving beyond purely deterministic checks and enabling more transparent, risk‑informed decisions for long‑term TSF stab
+More broadly, introducing performance‑based principles early in a project allows the seismic load definition to be established, while the characterization of material resistance is progressively refined through additional site investigation and testing. As the statistical description of resistance improves, the probabilistic demand framework presented here can be combined with a statistical description of material resistance to support fully reliability‑based design, enabling more transparent, risk‑informed decisions for the long‑term stability of tailings storage facilities.
 
 # References
