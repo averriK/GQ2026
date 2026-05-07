@@ -1,3 +1,17 @@
+---
+bibliography: bib/references.bib
+format:
+  docx:
+    reference-doc: styles/reference.docx
+    filters:
+      - lua/list-style.lua
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+---
+
 ## ABSTRACT
 
 This paper presents a performance-based seismic design framework for the preliminary dynamic stability assessment of embankments constructed on soft, sensitive foundations such as varved glaciolacustrine clay. Where regulations require reclaimed tailings impoundments to withstand the Maximum Credible Earthquake (MCE) without loss of containment, robust screening methods become essential—particularly when available geotechnical data are limited.
@@ -43,59 +57,134 @@ performance-based procedures, allows linking the seismic coefficient ($k_{h}$) t
 
 It is worth mentioning that U.S. Army Corps of Engineers (USACE) Engineer Manual EM 1110-2-1902 and EM 1110-2-2100 endorse pseudo-static stability analysis as one of several acceptable methods and addresses the Newmark sliding-block approach for estimating permanent seismic deformation and establishing the principle that $k_{h}$ must reflect project-specific conditions. As the USACE, the Canadian Dan Association (CDA), the Eurocode, the National Cooperative Highway Research Program (NCHRP) and the International Commission on Large Dams (ICOLD), endorse the Newmark displacement approach, with the same caveat: the $k_{h}$ must reflect project-specific conditions.
 
-## pseudo-static coefficient determination
+## Performance-Based Seismic Coefficient  [@Verri2026]
 
 As part of pseudo-static slope stability, the dynamic effect of earthquake shaking is simplified and represented as an equivalent static horizontal force. This force is proportional to a seismic coefficient, $k_{h}$, and the weight of the potential sliding mass. Historically, the value of $k_{h}$ has been selected either as a fixed fraction of the regional design peak ground acceleration (PGA) or based on engineering judgment.
 
 Over the past decades, a transition toward performance-based procedures linking $k_{h}$ to an explicit project-based displacement tolerance and a probabilistic seismic hazard level reflecting the consequence class of the structure occured. This transition has been enabled by the development of empirical Newmark sliding-block displacement models (rigid-block and flexible-block formulations) translating ground-motion intensity into probability distributions of permanent residual displacement. This approach allows defining seismic design criteria in terms of quantified performance outcomes rather than nominal force levels [@USACECorpsEngineers2003; @AndersonEtAl2008].
 
-The performance-based framework for pseudo-static seismic coefficient selection was established by [@BrayTravasarou2007; @BrayTravasarou2009]. The procedure enables direct determination of the design seismic coefficient required to limit the probability of exceeding a specified displacement threshold, given the site ground-motion demand, the fundamental period $T_{n}$ of the sliding mass, and the yield acceleration. The framework was subsequently extended by [@BrayMacedo2017; @BrayMacedo2019; @BrayMacedo2023], [@MacedobEtAl2018] and [@MacedobEtAl2020].
+The performance-based framework for pseudo-static seismic coefficient selection was established by [@BrayTravasarou2007; @BrayTravasarou2009]. The procedure enables direct determination of the design seismic coefficient required to limit the probability of exceeding a specified displacement threshold, given site ground-motion demand, yield acceleration, and slope properties. The framework was subsequently extended by [@BrayMacedo2017; @BrayMacedo2019; @BrayMacedo2023], [@MacedoEtAl2018] and [@MacedoEtAl2020].
 
-The performance-based framework reconceptualizes $k_{h}$ selection as an inverse problem defined by an explicit displacement performance objective defined on a project-based basis. The design coefficient $k_{\max}$ is the minimum yield acceleration ratio, $k_{y} = a_{y}/g$, for which the probability of the ensemble-predicted permanent co-seismic displacement exceeding an allowable threshold, $D_{n}^{\star}$, is controlled at a specified target exceedance probability $p$:
+Empirical Newmark sliding-block displacement models form the core of these procedures. The Newmark sliding-block method conceptualizes the seismically loaded slope as either a rigid or a flexible (compliant) block resting on an inclined frictional surface. When the driving acceleration component along the failure plane exceeds the yield acceleration $k_{y}g$, the block undergoes incremental downslope movement; relative motion ceases when the driving acceleration falls below this threshold. The total permanent displacement $D_N$ accumulates over all exceedance episodes throughout the duration of shaking, and is modelled as a lognormal random variable:
 
-$$k_{\max}(p \mid D_{n}^{\star}) = inf\{ k_{y}:P\lbrack D_{n}(k_{y}) > D_{n}^{\star}\rbrack \leq p\}$$
+$$\ln d_N^{(i)} = \mu_{\ln D_N}^{(i)}(\mathbf{I},\, k_{y},\, T_{s},\, M_{w}) + z\,\sigma_{\ln D_N}^{(i)}$$ {#eq-newmark}
 
-where $a_{y}$ is the critical (yield) acceleration, $g$ is gravitational acceleration, $D_{n}$ is the ensemble-predicted Newmark displacement, and $p$ is the target exceedance probability.
+where $\mathbf{I}$ denotes the vector of ground-motion intensity measures specific to each model (e.g., $PGA$, spectral acceleration $S_{a}$ at a reference period, Arias intensity $AI$, or peak ground velocity $PGV$); $T_{s}$ is the fundamental period of the sliding mass; $M_{w}$ is the earthquake moment magnitude where included as a model predictor; $\mu_{\ln D_N}^{(i)}$ is the model-predicted mean log-displacement; $\sigma_{\ln D_N}^{(i)}$ is the associated standard deviation in natural-log space; and $z \sim \mathcal{N}(0,1)$ is a standard-normal variate capturing record-to-record variability not explained by the regression. Within the Monte Carlo loop a single draw $z^{(n)}$ is shared across all six models per realisation, as described below.
 
-The coefficient is calibrated as per the target ground-motion intensity level, expressed as an annual exceedance probability (AEP) and the physical and dynamic properties of the embankment. The physical property of the embankment is established through the yield acceleration ratio $(k_{y} = \frac{a_{y}}{g})$ representing the minimum normalized horizontal acceleration required to initiate permanent sliding. The dynamic properties of the embankment is represented through $T_{n}$ of the potentially sliding mass and depends on the shear stiffness and geometric extent of the sliding body. Together, $k_{y}$ and $T_{s}$ define the mechanical response of the slope to a given seismic excitation. The methodology connects these two parameter groups through Newmark sliding-block displacement regression models, which translate ground-motion intensity measures - including peak ground acceleration (PGA), spectral acceleration $S_{a}(T)$, peak ground velocity (PGV), and Arias intensity (AI) - into
-probability distributions of permanent residual displacement. The performance-based coefficient $k_{\max}$ is then identified by inverting this displacement framework: for a given target AEP and allowable displacement threshold $D_{n}^{\star}$, the minimum $k_{y}$ satisfying the prescribed performance criterion constitutes the design seismic coefficient.
+Rigid-block models treat the sliding mass as an undistorted body whose movement is driven entirely by the base excitation; dynamic amplification within the mass is negligible. This idealisation is appropriate for shallow translational failure surfaces in relatively stiff materials. Three rigid-block formulations are Ambraseys and Menu [-@AmbraseysMenu1988], Jibson [-@Jibson2007], and Saygili and Rathje [-@SaygiliRathje2008].
 
-## Newmark displacement models
+Flexible-block models account for the deformability of the sliding mass by incorporating its fundamental period $T_s$ and spectral acceleration $S_a$ evaluated at a shifted period $\alpha T_s$. These formulations include an explicit $M_w$ term and are appropriate for deeper-seated failure surfaces in earth dams, natural slopes, and waste embankments where the sliding mass has significant deformability. Three flexible-block formulations are Bray and Travasarou [-@BrayTravasarou2007], Bray, Macedo and Travasarou [-@BrayEtAl2018], and Bray and Macedo [-@BrayMacedo2019; -@BrayMacedo2023].
 
-The Newmark sliding-block method conceptualizes the seismically loaded slope as either a rigid or a flexible (compliant) block resting on an inclined frictional surface. When the driving acceleration component along the failure plane exceeds the yield acceleration ${(k}_{y}g)$, the block undergoes incremental downslope movement; relative motion ceases when the driving acceleration falls below this threshold. The total permanent displacement $D$ accumulates over all exceedance episodes throughout the duration of shaking as per the following equation:
+The performance-based framework reconceptualizes $k_{h}$ selection as an inverse problem: the design coefficient $k_{\max}$ is the minimum yield coefficient $k_{y} = a_{y}/g$ for which the probability of the Newmark displacement $D_N$ exceeding the allowable threshold $d^*$, integrated over the seismic hazard at return period $T_R$, is bounded at the target exceedance probability $p$:
 
-$$\ln D = \mu_{\ln D}(IM,\, k_{y},\, T_{s},\, M_{w}) + \epsilon\,\sigma_{\ln D}$$
+$$k_{\max}(p \mid d^*, T_R) = \inf\!\bigl\{k_{y} : P\bigl[D_N(k_y) > d^* \mid T_R\bigr] \leq p\bigr\}$$ {#eq-kmaxDef}
 
-where $IM$ denotes the set of ground-motion intensity measures specific to each model (e.g., $PGA$, spectral acceleration $S_{a}$ at a reference period, Arias intensity $AI$, or peak ground velocity $PGV$); $T_{n}$ is the fundamental period of the sliding mass; $M_{w}$ is the earthquake moment magnitude where included as a model predictor; $\mu_{\ln D}$ is the model-predicted mean displacement in natural-log space; $\sigma_{\ln D}$ is the associated standard deviation in natural-log space; and $\epsilon \sim \mathcal{N}(0,1)$ is a standard-normal variate capturing record-to-record variability not explained by the regression.
+$P[D_N(k_y) > d^* \mid T_R]$ has no closed form — the joint distribution of ground-motion intensities at rock level, the site-amplification factor, and the Newmark regression residual do not admit an analytical convolution. The probability is therefore evaluated numerically: the steps below describe a Monte Carlo loop over $N_S$ realisations drawn from each contributing distribution at $T_R$; the empirical distribution of $\{k_\text{max}^{(n)}(d^*)\}_{n=1}^{N_S}$ produced by that loop approximates the inverse mapping $d^* \mapsto k_\text{max}(p \mid d^*, T_R)$.
 
-Rigid-block models treat the sliding mass as an undistorted body whose movement is driven entirely by the base excitation; dynamic amplification within the mass is negligible. This idealisation is appropriate for shallow translational failure surfaces in relatively stiff materials. 
-[REVIEW: which ensemble? este parrafo solo debeeria hablar de las metodologias generala]
-Three rigid-block models are retained in the ensemble: Ambraseys and Menu [-@AmbraseysMenu1988], Jibson [-@Jibson2007], and Saygili and Rathje [-@SaygiliRathje2008] [@Verri2026].
+The empirical Newmark regressions described above carry intrinsic limitations as a basis for selecting the seismic coefficient of a critical structure. Each regression carries its own scatter $\sigma_{\ln D_N}$, the regressions can disagree with one another for the same input, and the regressions themselves provide no rule for choosing a single representative value. Furthermore, regression models alone do not propagate the variability of the regional hazard nor the uncertainty of the site response. Producing $k_h$ at a designer-chosen target exceedance probability $p$ requires integrating hazard, site-response, and regression-model variability into a single distribution — which is what the procedure of Verri Kozlowski [2026] does. The first parameter required is $T_s$, since the spectral periods needed from the PSHA depend on it.
 
-Flexible-block models account for the deformability of the sliding mass by incorporating its fundamental period $T_s$ and spectral acceleration $S_a$ evaluated at a shifted period p/. All three models include an explicit $M_w$ term to capture the effect of earthquake duration on accumulated displacement. These models are appropriate for deeper-seated failure surfaces in earth dams, natural slopes, and waste embankments where the sliding mass has significant deformability [@Verri2026].
+$T_s$ is estimated from the shear stiffness profile of the embankment following the truncated shear-beam framework of Ambraseys [1960] and Gazetas [1982], extended to include berm geometry by Dakoulas and Gazetas [1985]. The small-strain shear modulus profile is established from the formulation of Ishihara [1996]:
 
-## Suggested approach to assess the residusal displacement using Newmark displacement models
+$$G(z,\,e_o) \approx A\,\frac{(C_e - 1)^2}{1 + e_o}\,\left(\frac{\sigma'_o(z)}{p_\text{ref}}\right)^n$$ {#eq-ishihara}
 
-Rather than relying on a single preferred model, it is recommended that all six relationships — three rigid-block and three flexible-block — be retained and their results aggregated through a logic-tree weighting scheme. This approach explicitly accounts for model selection uncertainty: no single empirical displacement model is universally appropriate for all failure mechanisms and site conditions, and the ensemble captures the range of predictions arising from legitimate model choices. Logic-tree weights are assigned by failure mechanism: rigid-block models receive greater weight for shallow translational failures in stiff materials; flexible-block models receive greater weight for deeper-seated failures in deformable masses where the dynamic response of the sliding mass is significant; balanced weights are applied where the mechanism is mixed or transitional [@Verri2026].
+where $A$, $C_e$, and $n$ are determined from resonant column or bender element tests and tabulated by USCS classification; $\sigma'_o(z)$ is the octahedral effective stress at depth $z$. Evaluating at $z = H_\text{max}$, where $\sigma'_o$ reaches its maximum under self-weight, gives $G_o$ and the base shear-wave velocity $v_S^o = \sqrt{G_o/\rho}$. The homogeneity ratio $m_o$ is obtained by fitting $G(z)/G_o = (z/H_\text{max})^{m_o}$ to the measured or inferred stiffness data. The truncation ratio $\lambda_o = B_o/(2H_\text{max}s + B_o)$ captures the berm geometry. The fundamental period follows from Gazetas [1982] as:
 
-The procedure propagates three sources of uncertainty. First, seismic demand uncertainty: ground-motion intensity measures are sampled from probabilistic seismic hazard analysis (PSHA) to represent the natural variability in earthquake shaking at the design return period, preserving the statistical dependence between spectral accelerations at different periods [@BakerJayaram2008]. Second, site response uncertainty: amplification from the reference rock condition to the ground surface is uncertain; this uncertainty is applied period-by-period to each simulated ground-motion scenario. Third, displacement-model variability: each of the six models carries its own regression scatter ($\sigma_{\ln D}$); because all six are driven by the same earthquake record in any given simulation, a single common random draw is applied across all six and scaled by each model's standard deviation — the same shaking cannot simultaneously be above average for one model and below average for
-another [@Verri2026]. Ensemble displacement quantiles (median, 84th percentile, 95th percentile) are obtained by weighting individual model outputs according to their logic-tree weights. The performance-based seismic coefficient $k_{\max}$ is then identified for each slope configuration and design return period as the minimum yield acceleration $k_y$ for which the probability of exceeding the specified displacement threshold $D_n^\star$ does not exceed the target, yielding tabulated $k_{\max}$ values across the full range of design return periods [@Verri2026].
+$$T_s \simeq \frac{4\pi H_\text{max}}{a^{(1)}(2 - m_o)\,v_S^o}$$ {#eq-ts}
 
-## Application of the suggested approach
+where $a^{(1)}$ is the first eigenvalue of the characteristic equation governing the laterally constrained embankment under harmonic base excitation, a function of $m_o$ and $\lambda_o$ tabulated in Dakoulas and Gazetas [1985].
 
-## pseudo-static stability assessment outcomes
+With $T_s$ determined, the required intensity-measure periods are fixed: $T^{(1)} = 0$ (PGA) for the rigid-block models and for the nonlinear site-amplification term, $1.5\,T_s$ for BT07 and BM17, and $1.3\,T_s$ for BM19. The PSHA returns, at each required period $T^{(j)}$ and at the design return period $T_R$ for reference rock condition $V_{S30,\text{ref}}$, a discrete set of empirical fractiles $\{q^{(k)},\, S_a^{(k)}(T^{(j)})\}$. For each realisation $n$, a correlated standard-normal vector $\boldsymbol{u}^{(n)}$ is drawn by Cholesky decomposition of the inter-period correlation matrix $\mathbf{C}$ of Baker and Jayaram [2008], with entries $C^{(j,m)} = \rho_\text{BJ}(T^{(j)}, T^{(m)})$:
 
-## stability assessment
+$$\boldsymbol{u}^{(n)} = \mathbf{L}\,\boldsymbol{z}_c^{(n)}, \qquad \boldsymbol{z}_c^{(n)} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}), \qquad \mathbf{L}\mathbf{L}^\top = \mathbf{C}.$$ {#eq-cholesky}
+
+Each component $u^{(j,n)}$ of $\boldsymbol{u}^{(n)}$ is then mapped to a rock-level log-spectral ordinate via the period-specific PSHA quantile function $Q^{(j)}$, with $\Phi$ the standard normal CDF:
+
+$$\ln S_a^{(n)}(T^{(j)}) = Q^{(j)}\!\bigl(\Phi(u^{(j,n)})\bigr).$$ {#eq-psha}
+
+The rock-level intensities are then amplified to the target site. The amplification factor $F$ is lognormal with mean log-amplification $\mu_{\ln F}(T^{(j)}, V_{S30}, \mathrm{PGA}^{(n)}) = \ln F_{760}(T^{(j)}) + \ln F_V(V_{S30}, T^{(j)}) + \ln F_{nl}(V_{S30}, \mathrm{PGA}^{(n)}, T^{(j)})$ and total log-space dispersion $\sigma_{\ln F}^2 = \sigma_L^2 + \sigma_I^2 + \sigma_{NL}^2$ [@SeyhanStewart2014], where $\mathrm{PGA}^{(n)} = S_a^{(n)}(T^{(1)})$ is the realisation's own rock-level PGA so that the nonlinear term is internally consistent. An independent draw at each period gives the surface ordinate:
+
+$$S_a^{(n)}(T^{(j)}, V_{S30}) = F^{(n)}(T^{(j)}) \cdot S_a^{(n)}(T^{(j)}, V_{S30,\text{ref}}), \qquad \ln F^{(n)}(T^{(j)}) \sim \mathcal{N}\!\bigl(\mu_{\ln F},\, \sigma_{\ln F}^2\bigr).$$ {#eq-site}
+
+A single standard-normal residual $z^{(n)} \sim \mathcal{N}(0,1)$ is then drawn and shared across all models in the ensemble. For each grid point $k_y^{(k)}$ and each displacement model $(i)$, the per-realisation displacement sample is:
+
+$$d_N^{(i,n,k)} = \exp\!\bigl[\mu_{\ln D_N}^{(i)}(k_y^{(k)},\, \mathbf{I}^{(n)}) + \sigma_{\ln D_N}^{(i)}\, z^{(n)}\bigr],$$ {#eq-dn}
+
+where $I^{(n)} = (\mathrm{PGA}^{(n)},\, S_a^{(n)}(\alpha T_s),\,\ldots)$ collects the surface-level intensity measures for realisation $n$. The shared $z^{(n)}$ reflects the working assumption of perfect cross-model residual correlation [@Verri2026]. Before inversion, each per-model curve is right-cumulative-max projected to enforce physical monotonicity in $k_y$:
+
+$$\tilde{d}_N^{(i,n,k)} = \max_{m\,\geq\,k}\; d_N^{(i,n,m)}.$$ {#eq-proj}
+
+Let $k^*$ be the grid index such that $\tilde{d}_N^{(i,n,k^*)} \geq d^* > \tilde{d}_N^{(i,n,k^*+1)}$. Piecewise log-log linear interpolation of the monotone curve gives the per-model per-realisation yield coefficient:
+
+$$k_\text{max}^{(i,n)}(d^*) = k_y^{(k^*)} \left(\frac{d^*}{\tilde{d}_N^{(i,n,k^*)}}\right)^{\!\beta^{(k^*)}}, \qquad \beta^{(k^*)} = \frac{\ln k_y^{(k^*+1)} - \ln k_y^{(k^*)}}{\ln \tilde{d}_N^{(i,n,k^*+1)} - \ln \tilde{d}_N^{(i,n,k^*)}}.$$ {#eq-inv}
+
+The logic-tree-weighted mean in linear $k_y$-space is the per-realisation result:
+
+$$k_\text{max}^{(n)}(d^*) = \sum_{(i)} w^{(i)}\, k_\text{max}^{(i,n)}(d^*).$$ {#eq-kmaxMean}
+
+Repeating over $N_S$ realisations yields the empirical distribution of $\{k_\text{max}^{(n)}(d^*)\}_{n=1}^{N_S}$, from which the mean and the $p$-th quantile are:
+
+$$\bar{k}_\text{max}(d^*) = \frac{1}{N_S}\sum_{n=1}^{N_S} k_\text{max}^{(n)}(d^*), \qquad k_\text{max}^{(p)}(d^*) = Q_p\!\bigl[\{k_\text{max}^{(n)}(d^*)\}_{n=1}^{N_S}\bigr].$$ {#eq-summary}
+
+The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of F2: the smallest $k_y$ such that the estimated exceedance probability is bounded at $p$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the design value as a percentage of the mean rock-level PGA at $T_R$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the result as a percentage of the mean rock-level PGA at $T_R$.
+
+## Numerical application — Part 1: Seismic coefficient estimation
+
+```{r}
+#| include: false
+library(here)
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+
+TR_TARGET   <- 2500
+IDg_TARGET  <- "S30"
+IDm_TARGET  <- "U2"
+ID_TARGET   <- "NBCC.max"
+VS30_TARGET <- 360
+DA_TARGET   <- c(2.5, 5, 10)
+p_TARGET    <- "mean"
+PSA_Units   <- "g"
+
+source(file.path(root, "scripts", "example", "kmax.R"))
+```
+
+The procedure of @Verri2026 is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the Seyhan and Stewart [-@SeyhanStewart2014] nonlinear site-amplification model and the Newmark logic-tree ensemble. The active branches carry equal weight $w^{(i)} = 1/4$: `r SUMMARY$wLabels`.
+
+The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s).
+
+The mean rock-level PGA at $T_R = `r SUMMARY$trLabel`$ yr is $\overline{\mathrm{PGA}}_\text{rock} = `r SUMMARY$pga`$ g. The site-amplification factor at PGA is $\bar{F} = `r SUMMARY$afPGA`$ ($\mu_{\ln F} = `r SUMMARY$muLnFpga`$, $\sigma_{\ln F} = `r SUMMARY$sigLnFpga`$). At the flexible-block spectral periods: $\bar{S}_{a,\text{site}}(1.5\,T_s) = `r SUMMARY$saF15Ts`$ g ($\bar{F} = `r SUMMARY$af15Ts`$) and $\bar{S}_{a,\text{site}}(1.3\,T_s) = `r SUMMARY$saF13Ts`$ g ($\bar{F} = `r SUMMARY$af13Ts`$).
+
+```{r}
+#| label: tbl-kmax
+#| tbl-cap: !expr paste0("$k_\\\\text{max}$ and $K_h$ at $T_R = ", SUMMARY$trLabel, "$ yr, $V_{S30} = ", SUMMARY$vs30, "$ m/s.")
+DT_kmax <- data.table(
+  `d* (cm)`    = sapply(SUMMARY$DaRows, `[[`, "Da"),
+  `kmax (16%)` = sapply(SUMMARY$DaRows, `[[`, "kmax16"),
+  `kmax (mean)`= sapply(SUMMARY$DaRows, `[[`, "kmaxMean"),
+  `kmax (84%)` = sapply(SUMMARY$DaRows, `[[`, "kmax84"),
+  `Kh 16% (%)`  = sapply(SUMMARY$DaRows, `[[`, "kh16"),
+  `Kh mean (%)` = sapply(SUMMARY$DaRows, `[[`, "khMean"),
+  `Kh 84% (%)`  = sapply(SUMMARY$DaRows, `[[`, "kh84")
+)
+knitr::kable(DT_kmax, align = "c")
+```
+
+```{r}
+#| include: false
+rm(TR_TARGET, IDg_TARGET, IDm_TARGET, ID_TARGET, VS30_TARGET,
+   DA_TARGET, p_TARGET, PSA_Units, SUMMARY, DT_kmax)
+```
+
+## Numerical application — Part 2: Stability assessment
 
 The TSF comprises a series of containment embankments founded on proximal glaciolacustrine deposits of the Barlow–Ojibway clay complex. The embankments are constructed of compacted sand and gravel, with a geomembrane clay liner (GCL) placed on the upstream slopes. The tallest embankment segment is approximately 13 m in height, while the lowest is about 2.5 m. The operating water level allows of a permanent freeboard of 2.0 m. The downstream slope of the embankments are considered as not erodible and these are classified as having a "Significant" classification as per the CDA guidelines.
 
 Beneath the glaciolacustrine clays, a stratified silt unit is present. As illustrated in Figures 2 and 3, this unit exhibits sand‑like or transitional behaviour and is predominantly dilative. Isotropically consolidated undrained (ICU) triaxial tests performed on undisturbed samples recovered using a 3‑inch Osterberg sampler confirm this dilative response (Figure 3). To characterize the small‑strain stiffness profile and dynamic properties of this sequence, shear‑wave velocities (Vs) were measured using seismic piezocone soundings; the resulting Vs profiles across the site are presented in Figure 5.
 
-![](image2.jpg){width="3.1893033683289587in" height="2.986111111111111in"}
+![](media/image2.jpg){width="3.1893033683289587in" height="2.986111111111111in"}
 
 **Figure 1** Modified Roberston (2016) SBTn chart from a CPTu performed beneath the dam crest
 
-![](research/GQ2026/verri/md%201/media/image3.png){width="3.2263888888888888in" height="3.7979166666666666in"}
+![](media/image3.png){width="3.2263888888888888in" height="3.7979166666666666in"}
 
 **Figure 2** Modified Robertson (2016) SBTn and clean sand equivalent profile for a CPTu performed benath the dam crest
 
@@ -103,19 +192,17 @@ Given that the objective of this study was to evaluate the long‑term performan
 
 The liquefaction screening assessment was conducted following the methodology of [@YoudEtAl2001], based on comparison of cyclic resistance ratio (CRR) and cyclic stress ratio (CSR). As shown in Figure 4, the results indicate that the foundation soils are predominantly non‑liquefiable, thereby supporting the use of pseudo‑static FoS as a reliable basis for assessing the seismic stability or performance of the embankments.
 
-![](research/GQ2026/verri/md%201/media/image4.png){width="3.2263888888888888in" height="3.060416666667in"}
+![](media/image4.png){width="3.2263888888888888in" height="3.060416666667in"}
 
 **Figure 3** Undrained triaxial test performed on the fluvioglacial material
 
-![](research/GQ2026/verri/md%201/media/image5.png){width="2.032141294838145in" height="2.694932195975503in"}
+![](media/image5.png){width="2.032141294838145in" height="2.694932195975503in"}
 
 **Figure 4** Example of a CRR vs CSR profile for an earthquake with a magnitude of 7.00
 
-![](image6.png){width="3.2263888888888888in" height="3.938888888888889in"}
+![](media/image6.png){width="3.2263888888888888in" height="3.938888888888889in"}
 
 **Figure 5** Measured Vs profiles across the site
-
-## SITE Specific pseudo-static coefficient determination
 
 ## Closing remarks
 
@@ -123,4 +210,4 @@ Acknowledging that the key seismic load parameters for a project typically chang
 
 The methodology applied in this study provides a rational framework in which the seismic performance of the TSF embankments is evaluated in terms of earthquake‑induced permanent displacements, rather than solely through prescriptive FoS. By linking a horizontal seismic coefficient directly to an allowable displacement threshold, the approach demonstrates that limited expenditure should be required for the embankment to comply with the applicable regulations and meet project‑specific performance criteria under the required design and safety‑evaluation earthquakes. In this case, the performance‑based assessment showed that the selected reclamation concept is technically robust.
 
-More broadly, introducing performance‑based principles early in a project allows the seismic load definition to be established, while the characterization of material resistance is progressively refined through additional site investigation and testing. As the statistical description of resistance improves, the framework can naturally evolve toward a reliability‑based design, in which probabilities of exceeding specified performance limits are quantified explicitly, moving beyond purely deterministic checks and enabling more transparent, risk‑informed decisions for long‑term TSF stability.
+More broadly, introducing performance‑based principles early in a project allows the seismic load definition to be established, while the characterization of material resistance is progressively refined through additional site investigation and testing. As the statistical description of resistance improves, the framework can naturally evolve toward a reliability‑based design, in which probabilities of exceeding specified performance limits are quantified explicitly, moving beyond purely deterministic checks and enabling more transparent, risk‑informed decisions for long‑term TSF stab
