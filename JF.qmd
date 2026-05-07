@@ -125,7 +125,7 @@ Repeating over $N_S$ realisations yields the empirical distribution of $\{k_\tex
 
 $$\bar{k}_\text{max}(d^*) = \frac{1}{N_S}\sum_{n=1}^{N_S} k_\text{max}^{(n)}(d^*), \qquad k_\text{max}^{(p)}(d^*) = Q_p\!\bigl[\{k_\text{max}^{(n)}(d^*)\}_{n=1}^{N_S}\bigr].$$ {#eq-summary}
 
-The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of F2: the smallest $k_y$ such that the estimated exceedance probability is bounded at $p$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the design value as a percentage of the mean rock-level PGA at $T_R$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the result as a percentage of the mean rock-level PGA at $T_R$.
+The $p$-th quantile $k_\text{max}^{(p)}$ is the answer to the inverse problem of F2: the smallest $k_y$ such that the estimated exceedance probability is bounded at $p$. The normalised coefficient $K_h = \bar{k}_\text{max}\,/\,\overline{\mathrm{PGA}}_\text{rock} \times 100\%$ expresses the design value as a percentage of the mean rock-level PGA at $T_R$.
 
 ## Numerical application — Part 1: Seismic coefficient estimation
 
@@ -135,23 +135,25 @@ library(here)
 root <- normalizePath(here::here())
 source(file.path(root, "scripts", "setup", "setup.R"))
 
-TR_TARGET   <- 2500
+TR_TARGET   <- 10000
 IDg_TARGET  <- "S30"
 IDm_TARGET  <- "U2"
 ID_TARGET   <- "NBCC.max"
-VS30_TARGET <- 360
-DA_TARGET   <- c(2.5, 5, 10)
+VS30_TARGET <- 560
+DA_TARGET   <- c(0.5,2.5, 5)
 p_TARGET    <- "mean"
 PSA_Units   <- "g"
 
 source(file.path(root, "scripts", "example", "kmax.R"))
 ```
 
-The procedure of @Verri2026 is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the Seyhan and Stewart [-@SeyhanStewart2014] nonlinear site-amplification model and the Newmark logic-tree ensemble. The active branches carry equal weight $w^{(i)} = 1/4$: `r SUMMARY$wLabels`.
+The procedure of @Verri2026 is implemented in the `newmark` R package [@VerriKozlowski2017newmark], which propagates `r SUMMARY$ns` correlated realisations from the PSHA fractiles through the ST17 nonlinear site-amplification model [@SeyhanStewart2014] and a logic-tree ensemble of four empirical Newmark sliding-block displacement models — Ambraseys and Menu [-@AmbraseysMenu1988], Bray and Travasarou [-@BrayTravasarou2007], Saygili and Rathje [-@SaygiliRathje2008], and Bray and Macedo [-@BrayMacedo2019] — each assigned equal weight $w^{(i)} = 1/4$.
 
-The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s).
+The illustrative scenario is a `r SUMMARY$Hs` m embankment (slope gradient $s = `r SUMMARY$slope`$, truncation ratio $\lambda_o = `r SUMMARY$lambdaO`$, berm `r SUMMARY$berm` m) of `r SUMMARY$USCS` fill ($V_{S30} = `r SUMMARY$vs30`$ m/s), evaluated at $T_R = `r SUMMARY$trLabel`$ yr. Applying @eq-ishihara and @eq-ts gives $G_o = `r SUMMARY$goMin`$–$`r SUMMARY$goMax`$ MPa, $v_S^o = `r SUMMARY$vsoMin`$–$`r SUMMARY$vsoMax`$ m/s, and $T_s = `r SUMMARY$tsMin`$–$`r SUMMARY$tsMax`$ s (median $`r SUMMARY$tsMed`$ s), placing the flexible-block reference periods at $1.5\,T_s = `r SUMMARY$T15Ts`$ s and $1.3\,T_s = `r SUMMARY$T13Ts`$ s.
 
-The mean rock-level PGA at $T_R = `r SUMMARY$trLabel`$ yr is $\overline{\mathrm{PGA}}_\text{rock} = `r SUMMARY$pga`$ g. The site-amplification factor at PGA is $\bar{F} = `r SUMMARY$afPGA`$ ($\mu_{\ln F} = `r SUMMARY$muLnFpga`$, $\sigma_{\ln F} = `r SUMMARY$sigLnFpga`$). At the flexible-block spectral periods: $\bar{S}_{a,\text{site}}(1.5\,T_s) = `r SUMMARY$saF15Ts`$ g ($\bar{F} = `r SUMMARY$af15Ts`$) and $\bar{S}_{a,\text{site}}(1.3\,T_s) = `r SUMMARY$saF13Ts`$ g ($\bar{F} = `r SUMMARY$af13Ts`$).
+At $T_R = `r SUMMARY$trLabel`$ yr, the mean rock-level PGA (reference $V_{S30} = `r SUMMARY$vrockLabel`$ m/s) is $\overline{\mathrm{PGA}}_\text{rock} = `r SUMMARY$pga`$ g, with the 84th-percentile reaching $`r SUMMARY$pga84rock`$ g. The mean spectral accelerations at the flexible-block reference periods are $\bar{S}_{a,\text{rock}}(1.5\,T_s) = `r SUMMARY$sa15TsRock`$ g and $\bar{S}_{a,\text{rock}}(1.3\,T_s) = `r SUMMARY$sa13TsRock`$ g.
+
+The ST17 model yields a mean amplification factor at PGA of $\bar{F}_\text{PGA} = `r SUMMARY$afPGA`$ ($\mu_{\ln F} = `r SUMMARY$muLnFpga`$, $\sigma_{\ln F} = `r SUMMARY$sigLnFpga`$); at the reference periods the amplification factors are $`r SUMMARY$af15Ts`$ and $`r SUMMARY$af13Ts`$, yielding site-level spectral accelerations $\bar{S}_{a,\text{site}}(1.5\,T_s) = `r SUMMARY$saF15Ts`$ g and $\bar{S}_{a,\text{site}}(1.3\,T_s) = `r SUMMARY$saF13Ts`$ g.
 
 ```{r}
 #| label: tbl-kmax
@@ -167,6 +169,8 @@ DT_kmax <- data.table(
 )
 knitr::kable(DT_kmax, align = "c")
 ```
+
+For the intermediate displacement target $d^* = `r SUMMARY$DaRows[[2]]$Da`$ cm, the mean seismic coefficient $\bar{k}_\text{max} = `r SUMMARY$DaRows[[2]]$kmaxMean`$ and its 84th-percentile $k_\text{max}^{(84\%)} = `r SUMMARY$DaRows[[2]]$kmax84`$ jointly reflect the uncertainty propagated from the rock-level hazard fractiles through site amplification and the model ensemble; the corresponding normalised pseudostatic coefficient is $K_h = `r SUMMARY$DaRows[[2]]$khMean`\%$ of $\overline{\mathrm{PGA}}_\text{rock}$.
 
 ```{r}
 #| include: false
